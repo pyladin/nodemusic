@@ -73,6 +73,10 @@ io.on('connect', function(socket) {
   // Send the ffplay arguments that we want the client to use
   socket.emit('start-ffplay', { ffplayFlags: ffplayFlags, sdpFile: masterSDP });
 
+  setInterval(() => {
+    socket.emit('check-ffplay', { ffplayFlags: ffplayFlags, sdpFile: masterSDP });
+  }, 1000);
+
   // Write to the console to notify that a client has disconnected
   socket.on('disconnect', function() {
     console.log('a user disconnected');
