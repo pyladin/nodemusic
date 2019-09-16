@@ -13,6 +13,12 @@ function ffplayStart(data) {
   find('name', 'ffplay', true)
   .then(function (list) {
     if(!list.length) {
+      fs.writeFile('client.sdp', ffmpegArgs.sdpFile, function(err) {
+        if(err) {
+          console.log(err);
+        };
+        console.log('SDP file created successfully!');
+      });
       var ffplayCmd = spawn('ffplay', [data.ffplayFlags.sdpFile, data.ffplayFlags.protocolWhitelist, data.ffplayFlags.reorderQueueSize], { shell: true });
 
       ffplayCmd.stdout.on('data', (data) => {
