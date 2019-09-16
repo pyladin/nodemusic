@@ -23,14 +23,6 @@
   <script src="/socket.io/socket.io.js"></script>
   <script type="text/javascript">
     var socket = io({transports: ['websocket'], upgrade: false});
-    socket.on('connect', function(socket) {
-      socket.emit('request-clients', function() {
-        console.log('Requesting list of active clients.');
-      });
-      socket.on('send-clients', function(data) {
-        console.log(data);
-      });
-    });
   </script>
 </body>
 </html>
