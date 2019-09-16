@@ -40,7 +40,7 @@ function ffplayStart(data) {
           });
         } else {
           loudness.getVolume((err, vol) => {
-            if (vol < process.env.DEFAULT_VOLUME) {
+            if (vol !== process.env.DEFAULT_VOLUME) {
               loudness.setVolume(process.env.DEFAULT_VOLUME, (err) => {
                 if (err) {
                   console.log(err);
