@@ -33,16 +33,6 @@ function ffplayStart(data) {
       // Start ffplay and store the process in a variable so we can do things to it
       var ffplayCmd = spawn('ffplay', [data.ffplayFlags.sdpFile, data.ffplayFlags.protocolWhitelist, data.ffplayFlags.reorderQueueSize], { shell: true });
 
-      // Write to the console on stdout
-      ffplayCmd.stdout.on('data', (data) => {
-        console.log('stdout: ' + data.toString());
-      });
-
-      // Write to the console on stderr
-      ffplayCmd.stderr.on('data', (data) => {
-        console.log('stderr: ' + data.toString());
-      });
-
       // Write to the console to notify that ffplay is started
       console.log('ffplay has started');
     } else {
