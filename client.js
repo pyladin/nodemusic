@@ -3,6 +3,7 @@ var { spawn } = require('child_process'); // // Allows us to spawn ffmpeg and ff
 var fs = require('fs'); // Allows us to read and write files
 var find = require('find-process'); // Allows us to check if the ffmpeg and ffplay processes area already running
 var dotenv = require('dotenv'); // Allows us to use an env file to store important variables
+var loudness = rqeuire('loudness'); // Allows us to set, get and mute the client.
 
 // Initialize dotenv
 dotenv.config();
@@ -28,6 +29,26 @@ function ffplayStart(data) {
           console.log(err);
         };
         console.log('SDP file created successfully!');
+      });
+
+      loudness.getMuted((err, mute) => {
+        if (mute === true) {
+          loudness.setMuted(false, (err) => {
+            if (err) {
+              console.log(err);
+            };
+          });
+        } else {
+          loudness.getVolume((err, vol) => {
+            if (vol < 100) {
+              loudness.setVolume(100, (err) => {
+                if (err) {
+                  console.log(err);
+                };
+              });
+            };
+          });
+        };
       });
 
       // Start ffplay and store the process in a variable so we can do things to it
