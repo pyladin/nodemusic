@@ -13,7 +13,7 @@ function ffplayStart(data) {
   find('name', 'ffplay', true)
   .then(function (list) {
     if(!list.length) {
-      fs.writeFile('client.sdp', ffmpegArgs.sdpFile, function(err) {
+      fs.writeFile('client.sdp', data.ffmpegArgs.sdpFile, function(err) {
         if(err) {
           console.log(err);
         };
