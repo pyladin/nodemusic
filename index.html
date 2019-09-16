@@ -15,6 +15,12 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io();
+    socket.on('connect', function (data) {
+      var clients = io.sockets.clients();
+      for (client of clients) {
+        console.log(client);
+      };
+    });
   </script>
 </body>
 </html>
