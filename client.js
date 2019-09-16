@@ -13,7 +13,7 @@ function ffplayStart(data) {
   find('name', 'ffplay', true)
   .then(function (list) {
     if(!list.length) {
-      fs.writeFile('client.sdp', data.ffplayFlags.sdpFile, function(err) {
+      fs.writeFile('client.sdp', data.sdpFile, function(err) {
         if(err) {
           console.log(err);
         };
