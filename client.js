@@ -8,7 +8,7 @@ var dotenv = require('dotenv'); // Allows us to use an env file to store importa
 dotenv.config();
 
 // Connect to our socket.io server after initializing the environment variables
-var socket = io.connect('http://' + process.env.SERVER_ADDRESS + ':' + process.env.SERVER_PORT, { reconnection: true, reconnectionDelay: 1000, reconnectionDelayMax : 5000, reconnectionAttempts: Infinity });
+var socket = io.connect('http://' + process.env.SERVER_ADDRESS + ':' + process.env.SERVER_PORT, { transports: ['websocket'], upgrade: false });
 
 // Connect to the server and write to the console that we've connected
 socket.on('connect', function() {
