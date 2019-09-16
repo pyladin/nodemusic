@@ -57,12 +57,14 @@ function ffplayStart(data) {
 
       // Write to the console on stdout
       ffplayCmd.stdout.on('data', (data) => {
-        ffplayCmd.stdout.pipe(process.stdout);
+        console.log('stdout: ' + data.toString());
+        process.stdout.clearLine();
       });
 
       // Write to the console on stderr
       ffplayCmd.stderr.on('data', (data) => {
-        ffplayCmd.stderr.pipe(process.stderr);
+        console.log('stderr: ' + data.toString());
+        process.stderr.clearLine();
       });
 
       // Write to the console to notify that ffplay is started

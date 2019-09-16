@@ -38,12 +38,12 @@ find('name', 'ffmpeg', true)
 
     // Write to the console on stdout
     ffmpegCmd.stdout.on('data', (data) => {
-      ffmpegCmd.stdout.pipe(process.stdout);
+      console.log('\x1Bc\rstdout: ' + data.toString());
     });
 
     // Write to the console on stderr
     ffmpegCmd.stderr.on('data', (data) => {
-      ffmpegCmd.stderr.pipe(process.stderr);
+      console.log('\x1Bc\rstderr: ' + data.toString());
     });
 
     // Write to the console to notify that ffmpeg is started
