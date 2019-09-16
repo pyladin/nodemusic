@@ -5,6 +5,7 @@ var { spawn } = require('child_process'); // Allows us to spawn ffmpeg and ffpla
 var fs = require('fs'); // Allows us to read and write files
 var find = require('find-process'); // Allows us to check if the ffmpeg and ffplay processes area already running
 var dotenv = require('dotenv'); // Allows us to use an env file to store important variables
+var readline = require('readline'); // Allows us to simulate what ffmpeg/ffplay write to the console
 
 // Initialize dotenv
 dotenv.config();
@@ -37,12 +38,12 @@ find('name', 'ffmpeg', true)
 
     // Write to the console on stdout
     ffmpegCmd.stdout.on('data', (data) => {
-      console.log('stdout: ' + data.toString());
+      ffmpegCmd.stdout.write('stdout: ' + data.toString());
     });
 
     // Write to the console on stderr
     ffmpegCmd.stderr.on('data', (data) => {
-      console.error('stderr: ' + data.toString());
+      ffmpegCmd.stderr.write('stdout: ' + data.toString());
     });
 
     // Write to the console to notify that ffmpeg is started

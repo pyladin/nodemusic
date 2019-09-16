@@ -4,6 +4,7 @@ var fs = require('fs'); // Allows us to read and write files
 var find = require('find-process'); // Allows us to check if the ffmpeg and ffplay processes area already running
 var dotenv = require('dotenv'); // Allows us to use an env file to store important variables
 var loudness = require('loudness'); // Allows us to set, get and mute the client.
+var readline = require('readline'); // Allows us to simulate what ffmpeg/ffplay write to the console
 
 // Initialize dotenv
 dotenv.config();
@@ -56,14 +57,12 @@ function ffplayStart(data) {
 
       // Write to the console on stdout
       ffplayCmd.stdout.on('data', (data) => {
-            console.log('stdout: ' + data.toString());
-            ffmpegCmd.stdout.clearLine();
+            ffplayCmd.stdout.write('stdout: ' + data.toString());
       });
 
       // Write to the console on stderr
       ffplayCmd.stderr.on('data', (data) => {
-        console.error('stderr: ' + data.toString());
-        ffmpegCmd.stderr.clearLine();
+        ffplayCmd.stderr.write('stdout: ' + data.toString());
       });
 
       // Write to the console to notify that ffplay is started
