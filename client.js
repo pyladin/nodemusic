@@ -6,30 +6,41 @@ var find = require('find-process'); // Allows us to check if the ffmpeg and ffpl
 
 // Connect to the server and write to the console that we've connected
 socket.on('connect', function() {
+  // Write to the console to notify when a connection to the server is made
   console.log('A connection to the server has been made.')
 });
 
+// Find if ffplay is already started and don't start another one
 function ffplayStart(data) {
   find('name', 'ffplay', true)
   .then(function (list) {
     if(!list.length) {
+      // If ffplay is not running
+      // Build the client sdp file from the master sdp file sent from the server
       fs.writeFile('client.sdp', data.sdpFile, function(err) {
         if(err) {
           console.log(err);
         };
         console.log('SDP file created successfully!');
       });
+
+      // Start ffplay and store the process in a variable so we can do things to it
       var ffplayCmd = spawn('ffplay', [data.ffplayFlags.sdpFile, data.ffplayFlags.protocolWhitelist, data.ffplayFlags.reorderQueueSize], { shell: true });
 
+      // Write to the console on stdout
       ffplayCmd.stdout.on('data', (data) => {
             console.log(`stdout: ${data}`);
       });
 
+      // Write to the console on stderr
       ffplayCmd.stderr.on('data', (data) => {
         console.error(`stderr: ${data}`);
       });
+
+      // Write to the console to notify that ffplay is started
       console.log('ffplay has started');
     } else {
+      // If ffplay is already running
       console.log('ffplay is already running');
     };
   });
