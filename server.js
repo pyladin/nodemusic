@@ -4,6 +4,10 @@ var io = require('socket.io')(http); // Starts the socket.io server which client
 var { spawn } = require('child_process'); // Allows us to spawn ffmpeg and ffplay processes
 var fs = require('fs'); // Allows us to read and write files
 var find = require('find-process'); // Allows us to check if the ffmpeg and ffplay processes area already running
+var dotenv = require('dotenv'); // Allows us to use an env file to store important variables
+
+// Initialize dotenv
+dotenv.config();
 
 // Turn off polling and only use websockets
 // This resolves some strange issues where music would randomly stop streaming
@@ -17,10 +21,10 @@ app.get('/', function(req, res) {
 
 // Declare our ffmpeg arguments
 ffmpegArgs = {
-  streamSource: '-i http://50.7.68.251:6908/stream', // Will be updated to a sound card stream after testing
-  audioCodec: '-acodec libvorbis', // Allows for high quality streaming
-  broadcastFormat: '-f rtp', // Allows for multicast streaming
-  broadcastUrl: 'rtp://239.124.124.1:8081' // Specifes the multicast address the clients will be connecting to
+  streamSource: '-i ' + process.env.STREAM_SOURCE, // Will be updated to a sound card stream after testing
+  audioCodec: '-acodec ' + process.env.AUDIO_CODEC, // Allows for high quality streaming
+  broadcastFormat: '-f ' + process.env.BROADCAST_FORMAT, // Allows for multicast streaming
+  broadcastUrl: 'rtp://' + process.env.BROADCAST_ADDRESS + ':' + process.env.BROADCAST_PORT // Specifes the multicast address the clients will be connecting to
 };
 
 // Find if ffmpeg is already started and don't start another one
@@ -51,9 +55,9 @@ find('name', 'ffmpeg', true)
 
 // Set our ffplay flags that we will send to the client to use
 var ffplayFlags = {
-  sdpFile: '-i client.sdp', // Tells the client where the SDP file is located
-  protocolWhitelist: '-protocol_whitelist file,rtp,udp,rtsp', // Ffplay requires us to whitelist protocols
-  reorderQueueSize: '-reorder_queue_size 0' // Undocumented flag to help with restarting/latency
+  sdpFile: '-i ' + process.env.SDP_FILE, // Tells the client where the SDP file is located
+  protocolWhitelist: '-protocol_whitelist ' + process.env.PROTOCOL_WHITELIST, // Ffplay requires us to whitelist protocols
+  reorderQueueSize: '-reorder_queue_size ' + process.env.REORDER_QUEUE_SIZE // Undocumented flag to help with restarting/latency
 };
 
 // Read our master SDP file into a varialbe to be sent to the client

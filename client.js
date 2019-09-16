@@ -1,8 +1,14 @@
 var io = require('socket.io-client'); // Allows us to connect to the socket.io server as a client without a browser
-var socket = io('http://10.16.120.124:8080/', {transports: ['websocket'], upgrade: false}); // Connects us to the socket.io server
 var { spawn } = require('child_process'); // // Allows us to spawn ffmpeg and ffplay processes
 var fs = require('fs'); // Allows us to read and write files
 var find = require('find-process'); // Allows us to check if the ffmpeg and ffplay processes area already running
+var dotenv = require('dotenv'); // Allows us to use an env file to store important variables
+
+// Initialize dotenv
+dotenv.config();
+
+// Connect to our socket.io server after initializing the environment variables
+var socket = io('http://' + process.env.SERVER_ADDRESS + ':' process.env.SERVER_PORT, {transports: ['websocket'], upgrade: false});
 
 // Connect to the server and write to the console that we've connected
 socket.on('connect', function() {
