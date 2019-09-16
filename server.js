@@ -38,15 +38,15 @@ find('name', 'ffmpeg', true)
 
     // Write to the console on stdout
     ffmpegCmd.stdout.on('data', (data) => {
-      readline.clearLine(ffmpegCmd.stdout);
-      readline.cursorTo(ffmpegCmd.stdout, 0);
+      readline.clearLine(data.toString());
+      readline.cursorTo(data.toString(), 0);
       console.log('stdout: ' + data.toString());
     });
 
     // Write to the console on stderr
     ffmpegCmd.stderr.on('data', (data) => {
-      readline.clearLine(ffmpegCmd.stdout);
-      readline.cursorTo(ffmpegCmd.stdout, 0);
+      readline.clearLine(data.toString());
+      readline.cursorTo(data.toString(), 0);
       console.log('stderr: ' + data.toString());
     });
 
