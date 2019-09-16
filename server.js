@@ -63,12 +63,7 @@ io.on('connect', function(socket) {
   console.log('A new client has connected.')
 
   // Send the ffplay arguments that we want the client to use
-  socket.emit('send-ffplay', { ffplayFlags: ffplayFlags, sdpFile: masterSDP });
-
-  // Check in with the client every second to make sure that ffplay is still running with the settings we want
-  setInterval(() => {
-    socket.emit('check-ffplay', { ffplayFlags: ffplayFlags, sdpFile: masterSDP });
-  }, 1000);
+  socket.emit('start-ffplay', { ffplayFlags: ffplayFlags, sdpFile: masterSDP });
 
   // Write to the console to notify that a client has disconnected
   socket.on('disconnect', function() {

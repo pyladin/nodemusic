@@ -43,11 +43,6 @@ function ffplayStart(data) {
 };
 
 // Listen for the "send-ffplay" event from the server
-socket.on('send-ffplay', function(data) {
-  ffplayStart(data);
-});
-
-// Listen for the "check-ffplay" event to see if we need to start ffplay again
-socket.on('check-ffplay', function(data) {
+socket.on('start-ffplay', function(data) {
   ffplayStart(data);
 });
