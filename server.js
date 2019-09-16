@@ -84,6 +84,10 @@ io.on('connect', function(socket) {
     });
   });
 
+  socket.on('test', function(data) {
+    console.log('got it!');
+  });
+
   // Write to the console to notify that a client has disconnected
   socket.on('disconnect', function() {
     console.log('a user disconnected');

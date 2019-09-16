@@ -23,6 +23,9 @@
   <script src="/socket.io/socket.io.js"></script>
   <script type="text/javascript">
     var socket = io({transports: ['websocket'], upgrade: false});
+    socket.on('connect', function() {
+      socket.emit('test');
+    });
   </script>
 </body>
 </html>
