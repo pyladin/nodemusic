@@ -8,7 +8,12 @@
   <h1>Hello world!</h1>
   <script src="/socket.io/socket.io.js"></script>
   <script>
-  var socket = io();
+  $(function () {
+    var socket = io();
+    socket.on('connect', function(data) {
+      $console.log(data);
+    });
+  });
 </script>
 </body>
 </html>
