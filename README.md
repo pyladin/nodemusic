@@ -18,7 +18,8 @@ npm install
 > To be written
 
 ## Release History
-> To be written
+* 0.0.1
+    * Work in progress
 
 ## Meta
 Nico Bressler – [@Pyladin](https://twitter.com/pyladin) – nbressler@ci.lebanon.or.us
