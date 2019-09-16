@@ -3,8 +3,6 @@ var { spawn } = require('child_process'); // // Allows us to spawn ffmpeg and ff
 var fs = require('fs'); // Allows us to read and write files
 var find = require('find-process'); // Allows us to check if the ffmpeg and ffplay processes area already running
 var dotenv = require('dotenv'); // Allows us to use an env file to store important variables
-var loudness = require('loudness'); // Allows us to set, get and mute the client.
-var readline = require('readline'); // Allows us to simulate what ffmpeg/ffplay write to the console
 
 // Initialize dotenv
 dotenv.config();
@@ -32,37 +30,17 @@ function ffplayStart(data) {
         console.log('SDP file created successfully!');
       });
 
-      loudness.getMuted((err, mute) => {
-        if (mute === true) {
-          loudness.setMuted(false, (err) => {
-            if (err) {
-              console.log(err);
-            };
-          });
-        } else {
-          loudness.getVolume((err, vol) => {
-            if (vol !== process.env.DEFAULT_VOLUME) {
-              loudness.setVolume(process.env.DEFAULT_VOLUME, (err) => {
-                if (err) {
-                  console.log(err);
-                };
-              });
-            };
-          });
-        };
-      });
-
       // Start ffplay and store the process in a variable so we can do things to it
       var ffplayCmd = spawn('ffplay', [data.ffplayFlags.sdpFile, data.ffplayFlags.protocolWhitelist, data.ffplayFlags.reorderQueueSize], { shell: true });
 
       // Write to the console on stdout
       ffplayCmd.stdout.on('data', (data) => {
-        console.log('\x1Bc\rstdout: ' + data.toString());
+        console.log('stdout: ' + data.toString());
       });
 
       // Write to the console on stderr
       ffplayCmd.stderr.on('data', (data) => {
-        console.log('\x1Bc\rstderr: ' + data.toString());
+        console.log('stderr: ' + data.toString());
       });
 
       // Write to the console to notify that ffplay is started
