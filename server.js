@@ -11,7 +11,7 @@ dotenv.config();
 
 // Turn off polling and only use websockets
 // This resolves some strange issues where music would randomly stop streaming
-io.set('transports', ['websocket']);
+// io.set('transports', ['websocket']);
 
 // Serve up an html file at the root
 // This will be modified later to allow for some admin controls
@@ -69,10 +69,6 @@ io.on('connect', function(socket) {
   setInterval(() => {
     socket.emit('check-ffplay', { ffplayFlags: ffplayFlags, sdpFile: masterSDP });
   }, 1000);
-
-  socket.on('chat message', function(msg){
-    console.log('message: ' + msg);
-  });
 
   // Write to the console to notify that a client has disconnected
   socket.on('disconnect', function() {
