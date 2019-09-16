@@ -35,6 +35,14 @@ find('name', 'ffmpeg', true)
     // Start ffmpeg and store the process in a variable so we can do things to it
     var ffmpegCmd = spawn('ffmpeg', [ffmpegArgs.streamSource, ffmpegArgs.audioCodec, ffmpegArgs.broadcastFormat, ffmpegArgs.broadcastUrl], { shell: true });
 
+    ffmpegCmd.stdout.on('data', (data) => {
+      console.log(`stdout: ${data}`);
+    });
+
+    ffmpegCmd.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+    });
+
     // Write to the console to notify that ffmpeg is started
     console.log('ffmpeg has started');
   } else {
