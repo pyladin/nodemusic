@@ -70,6 +70,10 @@ io.on('connect', function(socket) {
     socket.emit('check-ffplay', { ffplayFlags: ffplayFlags, sdpFile: masterSDP });
   }, 1000);
 
+  socket.on('chat message', function(msg){
+    console.log('message: ' + msg);
+  });
+
   // Write to the console to notify that a client has disconnected
   socket.on('disconnect', function() {
     console.log('a user disconnected');
