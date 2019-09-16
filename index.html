@@ -14,7 +14,7 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    var socket = io();
+    var socket = io({transports: ['websocket'], upgrade: false});
     socket.on('connect', function (data) {
       var clients = io.sockets.clients();
       for (client of clients) {

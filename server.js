@@ -11,7 +11,7 @@ dotenv.config();
 
 // Turn off polling and only use websockets
 // This resolves some strange issues where music would randomly stop streaming
-// io.set('transports', ['websocket']);
+io.set('transports', ['websocket']);
 
 // Serve up an html file at the root
 // This will be modified later to allow for some admin controls
