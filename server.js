@@ -6,46 +6,54 @@ var fs = require('fs'); // Allows us to read and write files
 var find = require('find-process'); // Allows us to check if the ffmpeg and ffplay processes area already running
 
 // Turn off polling and only use websockets
+// This resolves some strange issues where music would randomly stop streaming
 io.set('transports', ['websocket']);
 
 // Serve up an html file at the root
+// This will be modified later to allow for some admin controls
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
 // Declare our ffmpeg arguments
 ffmpegArgs = {
-  streamSource: '-i http://50.7.68.251:6908/stream',
-  audioCodec: '-acodec libvorbis',
-  broadcastFormat: '-f rtp',
-  broadcastUrl: 'rtp://239.124.124.1:8081'
+  streamSource: '-i http://50.7.68.251:6908/stream', // Will be updated to a sound card stream after testing
+  audioCodec: '-acodec libvorbis', // Allows for high quality streaming
+  broadcastFormat: '-f rtp', // Allows for multicast streaming
+  broadcastUrl: 'rtp://239.124.124.1:8081' // Specifes the multicast address the clients will be connecting to
 };
 
 // Find if ffmpeg is already started and don't start another one
 find('name', 'ffmpeg', true)
 .then(function (list) {
   if(!list.length) {
+    // If ffmpeg is not running
+    // Start ffmpeg and store the process in a variable so we can do things to it
     var ffmpegCmd = spawn('ffmpeg', [ffmpegArgs.streamSource, ffmpegArgs.audioCodec, ffmpegArgs.broadcastFormat, ffmpegArgs.broadcastUrl], { shell: true });
 
+    // Write to the console on stdout
     ffmpegCmd.stdout.on('data', (data) => {
       console.log(`stdout: ${data}`);
     });
 
+    // Write to the console on stderr
     ffmpegCmd.stderr.on('data', (data) => {
       console.error(`stderr: ${data}`);
     });
 
+    // Write to the console to notify that ffmpeg is started
     console.log('ffmpeg has started');
   } else {
+    // If ffmpeg is already running
     console.log('ffmpeg is already running');
   };
 });
 
 // Set our ffplay flags that we will send to the client to use
 var ffplayFlags = {
-  sdpFile: '-i client.sdp',
-  protocolWhitelist: '-protocol_whitelist file,rtp,udp,rtsp',
-  reorderQueueSize: '-reorder_queue_size 0'
+  sdpFile: '-i client.sdp', // Tells the client where the SDP file is located
+  protocolWhitelist: '-protocol_whitelist file,rtp,udp,rtsp', // Ffplay requires us to whitelist protocols
+  reorderQueueSize: '-reorder_queue_size 0' // Undocumented flag to help with restarting/latency
 };
 
 // Read our master SDP file into a varialbe to be sent to the client
@@ -57,14 +65,18 @@ try {
 
 // Emit the "send-ffplay" event to a client when it connects to start playing the stream
 io.on('connect', function(socket) {
+  // Write to the console to notify that a client has connected
   console.log('A new client has connected.')
 
+  // Send the ffplay arguments that we want the client to use
   socket.emit('send-ffplay', { ffplayFlags: ffplayFlags, sdpFile: masterSDP });
 
+  // Check in with the client every second to make sure that ffplay is still running with the settings we want
   setInterval(() => {
     socket.emit('check-ffplay', { ffplayFlags: ffplayFlags, sdpFile: masterSDP });
   }, 1000);
 
+  // Write to the console to notify that a client has disconnected
   socket.on('disconnect', function() {
     console.log('a user disconnected');
   });
