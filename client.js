@@ -3,7 +3,7 @@ var { spawn } = require('child_process'); // // Allows us to spawn ffmpeg and ff
 var fs = require('fs'); // Allows us to read and write files
 var find = require('find-process'); // Allows us to check if the ffmpeg and ffplay processes area already running
 var dotenv = require('dotenv'); // Allows us to use an env file to store important variables
-var loudness = rqeuire('loudness'); // Allows us to set, get and mute the client.
+var loudness = require('loudness'); // Allows us to set, get and mute the client.
 
 // Initialize dotenv
 dotenv.config();
