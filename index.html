@@ -62,14 +62,15 @@
           };
         });
       });
-      $(document).on("click", "#playStream", function(){
-        console.log('Sending request to client: ' + $('#playStream').attr("value"));
-        socket.emit('start-ffplay', $('#playStream').attr("value"))
-      });
-      $(document).on("click", "#stopStream", function(){
-        var stopClientID = $('#stopStream').attr("value")
-        console.log('Sending request to client: ' + $('#stopStream').attr("value"));
-        socket.emit('stop-ffplay', $('#stopStream').attr("value"))
+      $( document ).ready(function() {
+        $(document).on("click", "#playStream", function(){
+          console.log('Sending request to client: ' + $('#playStream').attr("value"));
+          socket.emit('start-ffplay', $('#playStream').attr("value"))
+        });
+        $(document).on("click", "#stopStream", function(){
+          console.log('Sending request to client: ' + $('#stopStream').attr("value"));
+          socket.emit('stop-ffplay', $('#stopStream').attr("value"))
+        });
       });
     });
   </script>
