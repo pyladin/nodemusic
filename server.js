@@ -22,8 +22,8 @@ io.on('connection', function(socket) {
     callback(null, clients);
   });
 
-  socket.on('get-details', function(client) {
-    console.log(client);
+  socket.on('get-details', function(data) {
+    console.log(data.client);
   })
 
   // Listen for disconnect events from clients
