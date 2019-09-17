@@ -13,14 +13,11 @@ socket.on('connect', function() {
   console.log('A connection to the server has been made.');
 
   socket.on('send-client-details', function(callback) {
-    var clientDetails = {
-      clientName: process.env.CLIENT_NAME,
-      clientLocation: process.env.CLIENT_LOCATION
-    };
-    callback(clientDetails);
-  });
-
-  socket.on('hi', function() {
-    console.log('hello');
+    // var clientDetails = {
+    //   clientName: process.env.CLIENT_NAME,
+    //   clientLocation: process.env.CLIENT_LOCATION
+    // };
+    // callback(clientDetails);
+    console.log('Yep, it made it this far!');
   });
 });
