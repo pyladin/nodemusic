@@ -16,7 +16,6 @@ io.on('connection', function(socket) {
     socket.emit('send-client-details', function(data) {
       console.log(data);
     });
-    callback(data);
   });
 
   // Listen for disconnect events from clients
