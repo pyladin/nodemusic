@@ -27,7 +27,7 @@
           <th scope="col">Client Location</th>
           <th scope="col">Volume Control</th>
           <th scope="col">Start/Stop</th>
-          <th scope="col" style="visbility:hidden">ID</th>
+          <th scope="col" style="display:none;">ID</th>
         </tr>
       </thead>
       <tbody>
@@ -50,14 +50,14 @@
         $("#client-table tbody").empty();
         socket.emit('request-client-details');
         socket.on('client-details', function(data) {
-          if ($("#client-table tbody").text().trim() != data.clientID){
+          if ($("#client-table tr").text().trim() != data.clientID){
             $("#client-table tbody").append(
               "<tr>" +
                 "<td>" + data.clientName + "</td>" +
                 "<td>" + data.clientLocation + "</td>" +
                 "<td>Placeholder</td>" +
                 "<td>Placeholder</td>" +
-                "<td>" + data.clientID + "</td>"
+                '<td style="display:none;">' + data.clientID + "</td>"
             );
           };
         });
