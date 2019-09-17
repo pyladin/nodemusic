@@ -18,6 +18,5 @@ socket.on('connect', function() {
     //   clientLocation: process.env.CLIENT_LOCATION
     // };
     // callback(clientDetails);
-    console.log('Yep, it made it this far!');
   });
 });
