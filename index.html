@@ -47,8 +47,7 @@
         console.log('Successfully connected to the server!');
 
         socket.emit('request-client-details');
-
-        socket.on('send-client-details', function(data) {
+        socket.on('client-details', function(data) {
           console.log(data);
         });
       });

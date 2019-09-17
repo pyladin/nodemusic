@@ -17,6 +17,6 @@ socket.on('connect', function() {
       clientName: process.env.CLIENT_NAME,
       clientLocation: process.env.CLIENT_LOCATION
     };
-    socket.emit('client-details', clientDetails);
+    socket.emit('forward-client-details', clientDetails);
   });
 });
