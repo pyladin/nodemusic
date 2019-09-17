@@ -23,7 +23,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('request-details', function(data) {
-    io.to(`${data.clientName}`).emit('get-details');
+    console.log(data.clientID);
   });
 
   // Listen for disconnect events from clients
