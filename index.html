@@ -64,10 +64,12 @@
       });
       $(document).on("click", "#playStream", function(){
         var clientID = $('#playStream').attr("value")
+        console.log('Sending request to client: ' + clientID);
         socket.emit('start-ffplay', clientID)
       });
       $(document).on("click", "#stopStream", function(){
         var clientID = $('#stopStream').attr("value")
+        console.log('Sending request to client: ' + clientID);
         socket.emit('stop-ffplay', clientID)
       });
     });
