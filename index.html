@@ -64,7 +64,7 @@
       });
       $(document).on("click", "#playStream", function(){
         var clientID = $('#playStream').attr("value")
-        socket.emit('play-ffplay', clientID)
+        socket.emit('start-ffplay', clientID)
       });
       $(document).on("click", "#stopStream", function(){
         var clientID = $('#stopStream').attr("value")

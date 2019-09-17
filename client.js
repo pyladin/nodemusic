@@ -20,4 +20,12 @@ socket.on('connect', function() {
     };
     socket.emit('forward-client-details', clientDetails);
   });
+
+  socket.on('start-ffplay', function(){
+    console.log('Made it all the way to the client!');
+  });
+
+  socket.on('stop-ffplay', function(){
+    console.log('Made it all the way to the client!');
+  });
 });

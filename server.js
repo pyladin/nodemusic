@@ -20,12 +20,14 @@ io.on('connection', function(socket) {
     io.emit('client-details', data);
   });
 
-  socket.on('play-ffplay', function(data) {
+  socket.on('start-ffplay', function(data) {
     console.log('Requesting to start ffplay on client: ' + data);
+    io.to(`${data}`).emit('start-ffplay');
   });
 
   socket.on('stop-ffplay', function(data) {
     console.log('Requesting to stop ffplay on client: ' + data);
+    io.to(`${data}`).emit('stop-ffplay');
   });
 
   // Listen for disconnect events from clients
