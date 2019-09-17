@@ -46,6 +46,7 @@
       socket.on('connect', function() {
         console.log('Successfully connected to the server!');
 
+        $("#client-table tbody").empty();
         socket.emit('request-client-details');
         socket.on('client-details', function(data) {
           $("#client-table tbody").append(
