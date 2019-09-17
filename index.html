@@ -43,13 +43,6 @@
   <script type="text/javascript">
     $(function () {
       var socket = io();
-      socket.on('connect', function() {
-        socket.emit('get-clients', function(err, clients) {
-          for (client of clients) {
-            socket.emit('request-details', {clientID: client});
-          };
-        });
-      });
     });
   </script>
 </body>

@@ -7,35 +7,15 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-var clients = [];
-
 // Listen for connection events from clients
 io.on('connection', function(socket) {
   // Log to the console that a client has connected
   console.log('A client has connected');
 
-  socket.on('get-clients', function(callback) {
-    Object.keys(io.sockets.sockets).forEach(function(id) {
-      clients.push(id);
-    });
-    clients.splice(clients.indexOf(socket.id), 1);
-    callback(null, clients);
-  });
-
-  socket.on('request-details', function(data) {
-    socket.broadcast.to(data.clientID).emit('get-details');
-  });
-
-  socket.on('send-details', function(data) {
-    console.log(data);
-  });
-
   // Listen for disconnect events from clients
   socket.on('disconnect', function() {
     // Log to the console that a client has disconnected
     console.log('A client has disconnected');
-
-    clients.splice(clients.indexOf(socket.id), 1);
   });
 });
 
