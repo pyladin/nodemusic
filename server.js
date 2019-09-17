@@ -14,11 +14,8 @@ io.on('connection', function(socket) {
 
   // Listen for the "ask-client-details" event and then emit a
   // "request-client-details" event to all the clients.
-  // socket.on('ask-client-details', function() {
-  //   io.emit('request-client-details');
-  // });
   socket.on('ask-client-details', function() {
-    return 'Yes!';
+    io.emit('request-client-details');
   });
 
   // Listen for the "send-client-details" event and then emit a
