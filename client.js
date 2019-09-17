@@ -31,8 +31,9 @@ function ffplayStart(data) {
       });
 
       // Start ffplay and store the process in a variable so we can do things to it
-      var ffplayCmd = spawn('ffplay', [data.ffplayFlags.sdpFile, data.ffplayFlags.protocolWhitelist, data.ffplayFlags.reorderQueueSize], { shell: true, stdio: ['pipe', null, null, null, 'pipe'] });
+      var ffplayCmd = spawn('ffplay', [data.ffplayFlags.sdpFile, data.ffplayFlags.protocolWhitelist, data.ffplayFlags.reorderQueueSize], { shell: true, {detached: true, stdio: ['ignore', 'ignore', 'ignore']} });
 
+      //
       ffplayCmd.stdout.on('data', (data) => {
         console.log(`stdout: ${data}`);
       });
