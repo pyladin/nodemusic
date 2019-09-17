@@ -21,7 +21,11 @@ io.on('connection', function(socket) {
   });
 
   socket.on('play-ffplay', function(data) {
-    console.log('It worked!');
+    console.log('Requesting to start ffplay on client: ' + data);
+  });
+
+  socket.on('stop-ffplay', function(data) {
+    console.log('Requesting to stop ffplay on client: ' + data);
   });
 
   // Listen for disconnect events from clients
