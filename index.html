@@ -48,7 +48,13 @@
 
         socket.emit('request-client-details');
         socket.on('client-details', function(data) {
-          console.log(data);
+          $("#client-table tbody").append(
+            "<tr>" +
+              "<td>" + data.clientName + "</td>" +
+              "<td>" + data.clientLocation + "</td>" +
+              "<td>Placeholder</td>" +
+              "<td>Placeholder</td>"
+          );
         });
       });
     });
