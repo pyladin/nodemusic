@@ -23,7 +23,9 @@ io.on('connection', function(socket) {
   });
 
   socket.on('request-details', function(data) {
-    io.to(`${data.clientID}`).emit('hello');
+    io.to(`${data.clientID}`).emit('hello', function() {
+      console.log(`Sending event to ${data.clientID}`);
+    });
   });
 
   // Listen for disconnect events from clients
