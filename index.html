@@ -45,12 +45,11 @@
       var socket = io();
       socket.on('connect', function() {
         socket.emit('get-clients', function(err, clients) {
-          console.log(clients);
+          for (var client in clients) {
+            console.log(client);
+          };
         });
       });
-      for (var client in clients) {
-        console.log(client);
-      };
     });
   </script>
 </body>
