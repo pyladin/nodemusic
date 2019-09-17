@@ -25,6 +25,7 @@
         <tr>
           <th scope="col">Client Name</th>
           <th scope="col">Client Location</th>
+          <th scope="col">Client ID</th>
         </tr>
       </thead>
       <tbody>
@@ -47,8 +48,10 @@
         var newRow = clientTable.insertRow();
         var clientNameCell = newRow.insertCell(0);
         var clientLocationCell = newRow.insertCell(1);
-        var clientNameText = document.createTextNode(data.clientName);
-        var clientLocationText = document.createTextNode(data.clientLocation);
+        var clientIDCell = newRow.insertCell(2);
+        var clientNameText = document.createTextNode(data.data.clientName);
+        var clientLocationText = document.createTextNode(data.data.clientLocation);
+        var clientIDText = document.createTextNode(data.data.clientID);
         clientNameCell.appendChild(clientNameText);
         clientLocationCell.appendChild(clientLocationText);
       });
