@@ -13,7 +13,8 @@ io.on('connection', function(socket) {
   console.log('A client has connected');
 
   socket.on('request-clients', function() {
-    console.log('Received a request for all clients!');
+    var clients = io.sockets.clients();
+    socket.emit('clients', clients);
   });
 
   // Listen for disconnect events from clients
