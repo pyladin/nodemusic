@@ -22,9 +22,11 @@ io.on('connection', function(socket) {
     callback(null, clients);
   });
 
-  socket.on('get-details', function(data) {
-    console.log(data.clientName);
-  })
+  socket.on('request-details', function(data, callback) {
+    io.to(`${data.clientName}`).emit('get-details', function(err, details) {
+      console.log(details);
+    });
+  });
 
   // Listen for disconnect events from clients
   socket.on('disconnect', function() {
