@@ -23,7 +23,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('request-details', function(data) {
-    socket.broadcast.to(data.clientID).emit('get-details', function(err, details) {
+    io.sockets.socket(data.clientID).emit('get-details', function(err, details) {
       console.log('Getting client details for client: ' + data.clientID);
     });
   });
