@@ -46,7 +46,9 @@
       socket.on('connect', function() {
         socket.emit('get-clients', function(err, clients) {
           for (client of clients) {
-            console.log(client);
+            socket.emit('get-details', function(err, client, details) {
+
+            });
           };
         });
       });
