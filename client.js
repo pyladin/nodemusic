@@ -12,11 +12,7 @@ socket.on('connect', function() {
   // Log to the console when we have successfully connected to the socket.io server
   console.log('A connection to the server has been made.');
 
-  socket.on('get-details', function(data) {
-    var clientDetails = {
-      clientName: process.env.CLIENT_NAME,
-      clientLocation: process.env.CLIENT_LOCATION
-    };
-    console.log('I was asked for my details!');
+  socket.on('hello', function() {
+    console.log('It works!');
   });
 });
