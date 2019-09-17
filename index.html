@@ -24,7 +24,11 @@
   <script type="text/javascript">
     var socket = io({transports: ['websocket'], upgrade: false});
     socket.on('connect', function() {
-      socket.emit('test');
+      socket.emit('request-clients', function() {
+        socket.on('send-clients', function(data) {
+          console.log(data);
+        });
+      });
     });
   </script>
 </body>
