@@ -12,7 +12,10 @@ socket.on('connect', function() {
   // Log to the console when we have successfully connected to the socket.io server
   console.log('A connection to the server has been made.');
 
-  socket.on('hello', function(data) {
-    console.log(data);
+  socket.on('hello', function(callback) {
+    var clientDetails = {
+      clientName = process.env.CLIENT_NAME
+    };
+    callback(null, clientDetails);
   });
 });
