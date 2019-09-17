@@ -22,7 +22,7 @@ io.on('connection', function(socket) {
     callback(null, clients);
   });
 
-  socket.on('get-details', function(err, client, callback) {
+  socket.on('get-details', function(client, callback) {
     console.log(client);
   })
 
