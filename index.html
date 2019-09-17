@@ -29,13 +29,10 @@
   <script type="text/javascript">
     $(function () {
       var socket = io();
-
-      socket.on('connection', function() {
-        socket.emit('ask-client-details');
-        socket.on('update-client-details', function(data) {
-          console.log('Client Name: ' + data.clientName);
-          console.log('Client Location: ' + data.clientLocation);
-        });
+      socket.emit('ask-client-details');
+      socket.on('update-client-details', function(data) {
+        console.log('Client Name: ' + data.clientName);
+        console.log('Client Location: ' + data.clientLocation);
       });
     });
   </script>
