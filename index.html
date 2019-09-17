@@ -41,16 +41,16 @@
   <script type="text/javascript">
     $(function () {
       var socket = io();
-      socket.emit('ask-client-details');
-      socket.on('update-client-details', function(data) {
-        var clientTable = document.getElementById("client-table").getElementsByTagName('tbody')[0];
-        var newRow = clientTable.insertRow();
-        var clientNameCell = newRow.insertCell(0);
-        var clientLocationCell = newRow.insertCell(1);
-        var clientNameText = document.createTextNode(data.clientName);
-        var clientLocationText = document.createTextNode(data.clientLocation);
-        clientNameCell.appendChild(clientNameText);
-        clientLocationCell.appendChild(clientLocationText);
+      socket.emit('ask-client-details', function(data) {
+        console.log(data);
+        // var clientTable = document.getElementById("client-table").getElementsByTagName('tbody')[0];
+        // var newRow = clientTable.insertRow();
+        // var clientNameCell = newRow.insertCell(0);
+        // var clientLocationCell = newRow.insertCell(1);
+        // var clientNameText = document.createTextNode(data.clientName);
+        // var clientLocationText = document.createTextNode(data.clientLocation);
+        // clientNameCell.appendChild(clientNameText);
+        // clientLocationCell.appendChild(clientLocationText);
       });
     });
   </script>
