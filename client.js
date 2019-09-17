@@ -16,9 +16,11 @@ socket.on('connect', function() {
   // Write to the console to notify when a connection to the server is made
   console.log('A connection to the server has been made.')
 
-  // Tell the server more information about those client
-  var clientName = process.env.CLIENT_NAME;
-  var clientLocation = process.env.CLIENT_LOCATION;
+  // Listen for the "request-client-info" event
+  socket.on('request-client-info', function() {
+    console.log('The server has requested my details.');
+    socket.emit('client-details', { clientName: process.env.CLIENT_NAME, clientLocation: process.env.CLIENT_LOCATION });
+  });
 });
 
 // Find if ffplay is already started and don't start another one
@@ -64,10 +66,4 @@ socket.on('start-ffplay', function(data) {
 // Listen for the "check-ffplay" event to see if we need to start ffplay again
 socket.on('check-ffplay', function(data) {
   ffplayStart(data);
-});
-
-// Listen for the "request-client-info" event
-socket.on('request-client-info', function() {
-  console.log('The server has requested my details.');
-  socket.emit('client-details', { clientName: process.env.CLIENT_NAME, clientLocation: process.env.CLIENT_LOCATION });
 });
