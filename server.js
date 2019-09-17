@@ -7,10 +7,14 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+var clients = [];
+
 // Listen for connection events from clients
 io.on('connection', function(socket) {
   // Log to the console that a client has connected
   console.log('A client has connected');
+
+  clients.push(socket);
 
   // Listen for disconnect events from clients
   socket.on('disconnect', function() {
