@@ -22,7 +22,6 @@ io.on('connection', function(socket) {
   socket.on('disconnect', function() {
     // Log to the console that a client has disconnected
     console.log('A client has disconnected');
-    clients.splice(clients.indexOf(socket), 1);
   });
 });
 
