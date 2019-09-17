@@ -12,13 +12,6 @@ io.on('connection', function(socket) {
   // Log to the console that a client has connected
   console.log('A client has connected');
 
-  var connectedClients = [];
-  connectedClients.push(socket);
-
-  socket.on('request-clients', function() {
-    socket.emit('client-list', connectedClients);
-  });
-
   // Listen for disconnect events from clients
   socket.on('disconnect', function() {
     // Log to the console that a client has disconnected

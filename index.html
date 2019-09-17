@@ -42,13 +42,6 @@
   <script type="text/javascript">
     $(function () {
       var socket = io();
-      socket.on('connect', function() {
-        socket.emit('request-clients');
-
-        socket.on('client-list', function(connectedClients) {
-          console.log(connectedClients);
-        });
-      });
     });
   </script>
 </body>
