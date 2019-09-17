@@ -67,5 +67,6 @@ socket.on('check-ffplay', function(data) {
 
 // Listen for the "request-client-info" event
 socket.on('request-client-info', function() {
+  console.log('The server has requested my details.');
   socket.emit('client-details', { clientName: process.env.CLIENT_NAME, clientLocation: process.env.CLIENT_LOCATION });
 });
