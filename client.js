@@ -7,4 +7,6 @@ var socket = io('http://' + process.env.SERVER_ADDRESS + ':' + process.env.SERVE
 
 socket.on('connect', function() {
   console.log('A connection to the server has been made.')
+
+  socket.emit('client-details', { clientName: process.env.CLIENT_NAME });
 });

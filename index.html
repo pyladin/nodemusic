@@ -29,6 +29,11 @@
   <script type="text/javascript">
     $(function () {
       var socket = io();
+
+      socket.on('update-client-details', function(data) {
+        console.log('Client Name: ' + data.clientName);
+        console.log('Client Location: ' + data.clientLocation);
+      });
     });
   </script>
 </body>

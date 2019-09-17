@@ -9,6 +9,10 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket) {
   console.log('A client has connected');
 
+  socket.on('client-details', function(data) {
+    io.emit('update-client-details', { clientName: data.clientName, clientLocation: data.clientLocation });
+  });
+
   socket.on('disconnect', function() {
     console.log('A client has disconnected');
   });
