@@ -7,18 +7,16 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-// Declare our empty client list to keep track of connected clients
-var clients = [];
-
 // Listen for connection events from clients
 io.on('connection', function(socket) {
   // Log to the console that a client has connected
   console.log('A client has connected');
 
-  // Add the newly connected client to the clients list
-  clients.push(socket);
-
-  console.log(socket);
+  socket.on('get-clients', function(callback) {
+    Object.keys(io.sockets.sockets).forEach(function(id) {
+      console.log("ID:",id)  // socketId
+    });
+  });
 
   // Listen for disconnect events from clients
   socket.on('disconnect', function() {
