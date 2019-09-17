@@ -17,6 +17,7 @@ io.on('connection', function(socket) {
   socket.on('get-clients', function(callback) {
     Object.keys(io.sockets.sockets).forEach(function(id) {
       clients.push(id);
+      clients.splice(clients.indexOf(socket.id), 1);
     });
     callback(null, clients);
   });
