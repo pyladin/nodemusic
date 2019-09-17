@@ -14,9 +14,11 @@ io.on('connection', function(socket) {
 
   socket.on('request-client-details', function(callback) {
     console.log('Yep it made it this far!');
-    socket.broadcast.emit('send-client-details', function(data) {
-      console.log(data);
+    io.emit('send-client-details');
+    socket.on('client-details', function(data) {
+      var clientDetails = data
     });
+    callback(clientDetails);
   });
 
   // Listen for disconnect events from clients
