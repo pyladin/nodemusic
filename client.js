@@ -12,7 +12,7 @@ socket.on('connect', function() {
   // Log to the console when we have successfully connected to the socket.io server
   console.log('A connection to the server has been made.');
 
-  socket.on('hello', function() {
-    console.log('It works!');
+  socket.on('hello', function(data) {
+    console.log(data);
   });
 });
