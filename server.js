@@ -8,6 +8,10 @@ app.get('/', function(req, res) {
 
 io.on('connection', function(socket) {
   console.log('A client has connected');
+
+  socket.on('disconnect', function() {
+    console.log('A client has disconnected');
+  });
 });
 
 http.listen(8080, function() {
