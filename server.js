@@ -12,6 +12,10 @@ io.on('connection', function(socket) {
   // Log to the console that a client has connected
   console.log('A client has connected');
 
+  socket.on('request-clients', function() {
+    console.log('Received a request for all clients!');
+  });
+
   // Listen for disconnect events from clients
   socket.on('disconnect', function() {
     // Log to the console that a client has disconnected
