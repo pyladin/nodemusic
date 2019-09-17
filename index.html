@@ -43,6 +43,11 @@
   <script type="text/javascript">
     $(function () {
       var socket = io();
+      socket.on('connect', function() {
+        socket.emit('request-clients', function(data) {
+          console.log(data);
+        });
+      });
     });
   </script>
 </body>
