@@ -13,6 +13,10 @@ socket.on('connect', function() {
   console.log('A connection to the server has been made.');
 
   socket.on('get-details', function() {
-    console.log('I hear you!');
+    var clientDetails = {
+      clientName: process.env.CLIENT_NAME,
+      clientLocation: process.clientLocation
+    };
+    socket.emit('send-details', clientDetails);
   });
 });

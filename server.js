@@ -26,6 +26,10 @@ io.on('connection', function(socket) {
     socket.broadcast.to(data.clientID).emit('get-details');
   });
 
+  socket.on('send-details', function(data) {
+    console.log(data);
+  });
+
   // Listen for disconnect events from clients
   socket.on('disconnect', function() {
     // Log to the console that a client has disconnected
