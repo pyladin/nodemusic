@@ -39,7 +39,8 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="http://10.16.120.124:8080/socket.io/socket.io.js"></script>
   <script type="text/javascript">
-    var socket = io({transports: ['websocket'], upgrade: false});
+    // var socket = io({transports: ['websocket'], upgrade: false});
+    var socket = io();
     socket.on('connect', function(socket) {
       console.log('Successfully connected to the server');
       socket.emit('request-client-info')
