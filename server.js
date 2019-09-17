@@ -20,6 +20,7 @@ io.on('connection', function(socket) {
 
   socket.on('request-clients', function(data, callback) {
     var responseData = clients;
+    callback(clients);
   });
 
   // Listen for disconnect events from clients
