@@ -7,6 +7,8 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+var clients = [];
+
 // Listen for connection events from clients
 io.on('connection', function(socket) {
   // Log to the console that a client has connected
@@ -14,14 +16,17 @@ io.on('connection', function(socket) {
 
   socket.on('get-clients', function(callback) {
     Object.keys(io.sockets.sockets).forEach(function(id) {
-      console.log("ID:",id)  // socketId
+      clients.push(id);
     });
+    callback(null, clients);
   });
 
   // Listen for disconnect events from clients
   socket.on('disconnect', function() {
     // Log to the console that a client has disconnected
     console.log('A client has disconnected');
+
+    clients.splice(clients.indexOf(socket.id), 1);
   });
 });
 
