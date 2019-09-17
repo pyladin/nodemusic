@@ -20,6 +20,10 @@ io.on('connection', function(socket) {
     io.emit('client-details', data);
   });
 
+  socket.on('play-ffplay', function(data) {
+    console.log('It worked!');
+  });
+
   // Listen for disconnect events from clients
   socket.on('disconnect', function() {
     // Log to the console that a client has disconnected
