@@ -14,6 +14,11 @@ var socket = io('http://' + process.env.SERVER_ADDRESS + ':' + process.env.SERVE
 socket.on('connect', function() {
   // Write to the console to notify when a connection to the server is made
   console.log('A connection to the server has been made.')
+
+  // Tell the server more information about those client
+  var clientName = process.env.CLIENT_NAME;
+  var clientLocation = process.env.CLIENT_LOCATION;
+  socket.emit('client-details', { clientName: clientName, clientLocation: clientLocation });
 });
 
 // Find if ffplay is already started and don't start another one

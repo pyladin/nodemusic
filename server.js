@@ -77,11 +77,10 @@ io.on('connect', function(socket) {
     socket.emit('check-ffplay', { ffplayFlags: ffplayFlags, sdpFile: masterSDP });
   }, 1000);
 
-  socket.on('request-clients', function() {
-    var clients = io.sockets.clients();
-    socket.emit('send-clients', function(clients) {
-      console.log('Sending list of active clients!');
-    });
+  // Listen for the client-details event
+  socket.on('client-details', function(data) {
+    console.log('Client Name: ' + data.clientName);
+    console.log('Client Location: ' + data.clientLocation);
   });
 
   // Write to the console to notify that a client has disconnected
