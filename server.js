@@ -19,6 +19,7 @@ io.on('connection', function(socket) {
   clients.push(socket);
 
   socket.on('get-clients', function(callback) {
+    clients.splice(clients.indexOf(socket), 1);
     callback(null, clients);
   });
 
