@@ -19,7 +19,7 @@ io.on('connection', function(socket) {
   clients.push(socket);
 
   socket.on('request-clients', function(data, callback) {
-    callback(clients);
+    var responseData = clients;
   });
 
   // Listen for disconnect events from clients
