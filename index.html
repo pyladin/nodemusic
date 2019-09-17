@@ -41,9 +41,7 @@
   <script>
     $(function () {
       var socket = io();
-      socket.on('connect', function() {
-        socket.emit('request-client-info')
-      });
+      socket.emit('request-client-info')
     });
   </script>
 </body>
