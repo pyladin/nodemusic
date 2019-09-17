@@ -12,8 +12,10 @@ io.on('connection', function(socket) {
   // Log to the console that a client has connected
   console.log('A client has connected');
 
+  var clients = [];
+  clients.push(socket);
+
   socket.on('request-clients', function() {
-    var clients = io.sockets.clients();
     socket.emit('clients', clients);
   });
 

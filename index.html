@@ -45,7 +45,7 @@
       socket.on('connect', function() {
         socket.emit('request-clients');
       });
-      socket.on('clients', function(clients) {
+      socket.on('client-list', function(clients) {
         console.log(clients);
       });
     });
