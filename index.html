@@ -63,8 +63,10 @@
         });
       });
 
-      $('#playStream').on('click', function() {
-        alert('Button was pressed!');
+      $('#playStream').on('click', function(e) {
+        e.preventDefault();
+        var clientID = $(this).attr("value");
+        socket.emit('play-ffplay', clientID);
       });
     });
   </script>
