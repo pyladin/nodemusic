@@ -62,7 +62,7 @@
         });
       });
       $( document ).ready(function() {
-        $("#playStream").live("click", function(){
+        $("#playStream").on("click", function(){
           console.log('Sending request to client: ' + $('#playStream').attr("value"));
           socket.emit('start-ffplay', $('#playStream').attr("value"))
         });
