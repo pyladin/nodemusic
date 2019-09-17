@@ -15,7 +15,7 @@ socket.on('connect', function() {
   socket.on('send-client-details', function() {
     var clientDetails = {
       clientName: process.env.CLIENT_NAME,
-      clientLocation: process.env.CLIENT_LOCATION
+      clientLocation: process.env.CLIENT_LOCATION,
       clientID: socket.id
     };
     socket.emit('forward-client-details', clientDetails);
