@@ -63,14 +63,13 @@
         });
       });
       $(document).on("click", "#playStream", function(){
-        var startClientID = $('#playStream').attr("value")
-        console.log('Sending request to client: ' + startClientID);
-        socket.emit('start-ffplay', startClientID)
+        console.log('Sending request to client: ' + $('#playStream').attr("value"));
+        socket.emit('start-ffplay', $('#playStream').attr("value"))
       });
       $(document).on("click", "#stopStream", function(){
         var stopClientID = $('#stopStream').attr("value")
-        console.log('Sending request to client: ' + stopClientID);
-        socket.emit('stop-ffplay', stopClientID)
+        console.log('Sending request to client: ' + $('#stopStream').attr("value"));
+        socket.emit('stop-ffplay', $('#stopStream').attr("value"))
       });
     });
   </script>
