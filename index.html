@@ -45,8 +45,8 @@
       socket.on('connect', function() {
         socket.emit('request-clients');
       });
-      socket.on('client-list', function(clients) {
-        console.log(clients);
+      socket.on('client-list', function(connectedClients) {
+        console.log(connectedClients);
       });
     });
   </script>
