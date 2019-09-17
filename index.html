@@ -42,6 +42,9 @@
   <script type="text/javascript">
     $(function () {
       var socket = io();
+      socket.on('connect', function() {
+        console.log('Connected to the server successfully!');
+      })
     });
   </script>
 </body>

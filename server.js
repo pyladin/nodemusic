@@ -1,7 +1,6 @@
 var app = require('express')(); // Allows us to serve up http pages easily
 var http = require('http').createServer(app); // Creates our http server
 var io = require('socket.io')(http); // Creates our socket.io server
-var dotenv = require('dotenv'); // Allows us to use an env file to store important variables
 
 // Initialize dotenv
 dotenv.config();
