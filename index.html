@@ -56,18 +56,20 @@
                 "<td>" + data.clientName + "</td>" +
                 "<td>" + data.clientLocation + "</td>" +
                 "<td>Placeholder</td>" +
-                '<td><button type="button" class="btn btn-success" style="text-align:center" value="' + data.clientID + '" id="playStream">Start</button> <button type="button" class="btn btn-danger" style="text-align:center" value="' + data.clientID + '" id="stopStream">Stop</button></td>' +
+                '<td><button type="submit" class="btn btn-success" style="text-align:center" value="' + data.clientID + '" id="playStream">Start</button> <button type="button" class="btn btn-danger" style="text-align:center" value="' + data.clientID + '" id="stopStream">Stop</button></td>' +
                 '<td style="display:none;">' + data.clientID + "</td>"
             );
           };
         });
       });
       $( document ).ready(function() {
-        $(document).on("click", "#playStream", function(){
+        $(document).on("click", "#playStream", function(e){
+          e.preventDefault();
           console.log('Sending request to client: ' + $('#playStream').attr("value"));
           socket.emit('start-ffplay', $('#playStream').attr("value"))
         });
-        $(document).on("click", "#stopStream", function(){
+        $(document).on("click", "#stopStream", function(e){
+          e.preventDefault();
           console.log('Sending request to client: ' + $('#stopStream').attr("value"));
           socket.emit('stop-ffplay', $('#stopStream').attr("value"))
         });
