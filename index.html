@@ -56,11 +56,14 @@
                 "<td>" + data.clientName + "</td>" +
                 "<td>" + data.clientLocation + "</td>" +
                 "<td>Placeholder</td>" +
-                '<td><button type="button" class="btn btn-success" style="text-align:center" value="' + data.clientID + '">Start</button> <button type="button" class="btn btn-danger" style="text-align:center" value="' + data.clientID + '">Stop</button></td>' +
+                '<td><button type="button" class="btn btn-success" style="text-align:center" value="' + data.clientID + '" >Start</button> <button type="button" class="btn btn-danger" style="text-align:center" value="' + data.clientID + '" id="stopStream">Stop</button></td>' +
                 '<td style="display:none;">' + data.clientID + "</td>"
             );
           };
         });
+      });
+      $('#playStream').click(function() {
+        console.log('The button was pressed!');
       });
     });
   </script>
