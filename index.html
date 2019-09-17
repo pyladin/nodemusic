@@ -23,11 +23,11 @@
     <table class="table table-dark table-striped" id="client-table">
       <thead>
         <tr>
-          <th scope="col">Client Name</th>
-          <th scope="col">Client Location</th>
-          <th scope="col">Volume Control</th>
-          <th scope="col">Start/Stop</th>
-          <th scope="col" style="display:none;" id="clientID">ID</th>
+          <th scope="col" style="text-align:center">Client Name</th>
+          <th scope="col" style="text-align:center">Client Location</th>
+          <th scope="col" style="text-align:center">Volume Control</th>
+          <th scope="col" style="text-align:center">Start/Stop</th>
+          <th scope="col" style="text-align:center;display:none;" id="clientID">ID</th>
         </tr>
       </thead>
       <tbody>
@@ -56,7 +56,7 @@
                 "<td>" + data.clientName + "</td>" +
                 "<td>" + data.clientLocation + "</td>" +
                 "<td>Placeholder</td>" +
-                '<td><button type="button" class="btn btn-success">Start</button> | <button type="button" class="btn btn-danger">Stop</button></td>' +
+                '<td><button type="button" class="btn btn-success" style="text-align:center">Start</button><button type="button" class="btn btn-danger" style="text-align:center">Stop</button></td>' +
                 '<td style="display:none;">' + data.clientID + "</td>"
             );
           };
