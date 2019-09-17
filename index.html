@@ -45,7 +45,7 @@
       var socket = io();
       socket.on('connect', function() {
         socket.emit('get-clients', function(err, clients) {
-          for (var client in clients) {
+          for (client in clients) {
             console.log(client);
           };
         });
