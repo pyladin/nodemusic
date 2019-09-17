@@ -1,6 +1,7 @@
 var app = require('express')(); // Allows us to serve up http pages easily
 var http = require('http').createServer(app); // Creates our http server
 var io = require('socket.io')(http); // Creates our socket.io server
+var dotenv = require('dotenv'); // Allows us to use an env file to store important variables
 var { spawn } = require('child_process'); // Allows us to spawn ffmpeg and ffplay processes
 var fs = require('fs'); // Allows us to read and write files
 var find = require('find-process'); // Allows us to check if the ffmpeg and ffplay processes area already running
