@@ -12,11 +12,12 @@ io.on('connection', function(socket) {
   // Log to the console that a client has connected
   console.log('A client has connected');
 
-  socket.on('request-client-details', function(callback) {
+  socket.on('request-client-details', function() {
     io.emit('send-client-details');
-    socket.on('client-details', function(data) {
-      console.log(data);
-    });
+  });
+
+  socket.on('client-details', function(data) {
+    console.log(data);
   });
 
   // Listen for disconnect events from clients
