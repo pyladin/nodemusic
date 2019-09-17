@@ -2,9 +2,6 @@ var app = require('express')(); // Allows us to serve up http pages easily
 var http = require('http').createServer(app); // Creates our http server
 var io = require('socket.io')(http); // Creates our socket.io server
 
-// Initialize dotenv
-dotenv.config();
-
 // Send the home page when get request made to root directory
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
