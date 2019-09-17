@@ -70,7 +70,7 @@ io.on('connection', function(socket) {
   // Listen for the "send-client-details" event and then emit a
   // "update client-details" event to all the clients
   socket.on('send-client-details', function(data) {
-    io.emit('update-client-details', {clientName: data.clientName, clientLocation: data.clientLocation });
+    io.emit('update-client-details', { data });
   });
 
   // Listen for disconnect events from clients

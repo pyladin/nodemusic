@@ -53,6 +53,6 @@ socket.on('connect', function() {
   // Listen for the "request-client-details" event and then emit a
   // "send-client-details" event back to the server
   socket.on('request-client-details', function() {
-    socket.emit('send-client-details', { clientName: process.env.CLIENT_NAME, clientLocation: process.env.CLIENT_LOCATION });
+    socket.emit('send-client-details', { clientName: process.env.CLIENT_NAME, clientLocation: process.env.CLIENT_LOCATION, clientID: socket.id });
   });
 });
