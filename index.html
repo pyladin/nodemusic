@@ -44,7 +44,8 @@
   <script type="text/javascript">
     $(document).ready(function () {
       $(document).on("click", "#playStream", function(){
-        alert('It worked!');
+        var clientID = $('#playStream').attr("value")
+        socket.emit('play-ffplay', clientID)
       });
     });
     $(function () {
