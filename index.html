@@ -45,6 +45,7 @@
       var socket = io();
       socket.on('connect', function() {
         console.log('Successfully connected to the server!');
+        socket.broadcast.emit('hi');
       });
     });
   </script>
