@@ -17,7 +17,9 @@ io.on('connection', function(socket) {
   // socket.on('ask-client-details', function() {
   //   io.emit('request-client-details');
   // });
-  socket.on('ask-client-details', 'Yes!');
+  socket.on('ask-client-details', function() {
+    return 'Yes!';
+  });
 
   // Listen for the "send-client-details" event and then emit a
   // "update client-details" event to all the clients
