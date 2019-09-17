@@ -40,6 +40,9 @@
   <script src="/socket.io/socket.io.js"></script>
   <script type="text/javascript">
     var socket = io({transports: ['websocket'], upgrade: false});
+    socket.on('connect', function(socket) {
+      console.log('Successfully connected to the server');
+    });
     socket.on('client-details', function(data) {
       var newRow = document.getElementById('clients-table').insertRow();
       newRow.innerHTML = `<td>${data.clientName}</td><td>${data.clientLocation}</td>`
