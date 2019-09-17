@@ -18,8 +18,8 @@ io.on('connection', function(socket) {
   // Add the newly connected client to the clients list
   clients.push(socket);
 
-  socket.on('request-clients', function(data, fn) {
-    fn(clients);
+  socket.on('get-clients', function(callback) {
+    callback(null, clients);
   });
 
   // Listen for disconnect events from clients
