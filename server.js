@@ -18,7 +18,7 @@ io.on('connection', function(socket) {
   // Add the newly connected client to the clients list
   clients.push(socket);
 
-  socket.on('request-clients', (data, callback) {
+  socket.on('request-clients', function(data, callback) {
     callback(clients);
   });
 
