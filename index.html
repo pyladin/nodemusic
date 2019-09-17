@@ -50,7 +50,7 @@
         $("#client-table tbody").empty();
         socket.emit('request-client-details');
         socket.on('client-details', function(data) {
-          if (!($(`#client-table td:contains(${data.clientID})`))) {
+          if ($(`#client-table td:contains(${data.clientID})`)) {
             $("#client-table tbody").append(
               "<tr>" +
                 "<td>" + data.clientName + "</td>" +
