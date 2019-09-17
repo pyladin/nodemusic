@@ -58,6 +58,6 @@ socket.on('connect', function() {
       clientLocation: process.env.CLIENT_LOCATION,
       clientID: socket.id
     };
-    console.log(clientDetails);
+    socket.emit('update-client-details', { clientDetails })
   });
 });
