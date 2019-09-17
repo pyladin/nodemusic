@@ -14,7 +14,7 @@ socket.on('connect', function() {
 
   socket.on('hello', function(callback) {
     var clientDetails = {
-      clientName = process.env.CLIENT_NAME
+      clientName: process.env.CLIENT_NAME
     };
     callback(null, clientDetails);
   });
