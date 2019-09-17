@@ -18,17 +18,14 @@ io.on('connection', function(socket) {
   // Add the newly connected client to the clients list
   clients.push(socket);
 
+  console.log(socket);
+
   // Listen for disconnect events from clients
   socket.on('disconnect', function() {
     // Log to the console that a client has disconnected
     console.log('A client has disconnected');
     clients.splice(clients.indexOf(socket), 1);
   });
-});
-
-socket.on('get-clients', function(callback) {
-  clients.splice(clients.indexOf(socket), 1);
-  callback(null, clients);
 });
 
 // Start our http server on port 8080
