@@ -71,7 +71,14 @@ io.on('connection', function(socket) {
 
   socket.on('stop-ffmpeg', function() {
     console.log('Web console made request to stop ffmpeg.');
-    process.kill(ffmpegPID);
+    find('pid', ffmpegPID, true)
+    .then(function (list) {
+      if(!list.length) {
+        console.log('ffmpeg has already been stopped.');
+      } else {
+        process.kill(ffmpegPID);
+      };
+    });
   });
 
   // Set our ffplay flags that we will send to the client to use
