@@ -6,6 +6,9 @@ var fs = require('fs'); // Allows us to read and write files
 var find = require('find-process'); // Allows us to check if the ffmpeg and ffplay processes area already running
 var dotenv = require('dotenv'); // Allows us to use an env file to store important variables
 
+// Initialize dotenv
+dotenv.config();
+
 // Send the home page when get request made to root directory
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
