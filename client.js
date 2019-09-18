@@ -17,6 +17,7 @@ socket.on('connect', function() {
   console.log('A connection to the server has been made.');
 
   var ffplayPID = null;
+  var volumeValue = 50;
 
   socket.on('send-client-details', function() {
     var clientDetails = {
@@ -75,8 +76,9 @@ socket.on('connect', function() {
   });
 
   socket.on('change-volume', function(data) {
-    console.log('Web console made request to change volume level to: ' + data.volumeValue);
-    exec('amixer -M sset PCM ' + data.volumeValue + '%', (error, stdout, stderr) => {
+    volumeValue = data.volumeValue;
+    console.log('Web console made request to change volume level to: ' + volumeValue);
+    exec('amixer -M sset PCM ' + volumeValue + '%', (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`);
         return;
@@ -84,5 +86,6 @@ socket.on('connect', function() {
       console.log(`stdout: ${stdout}`);
       console.error(`stderr: ${stderr}`);
     });
+    socket.emit('volume-changed', volumeValue);
   });
 });

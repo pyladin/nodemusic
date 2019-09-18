@@ -107,6 +107,10 @@ io.on('connection', function(socket) {
     io.to(`${data.clientID}`).emit('change-volume', { volumeValue: data.volumeValue });
   });
 
+  socket.on('volume-changed', function(data) {
+    socket.emit('update-volume', data);
+  });
+
   // Listen for disconnect events from clients
   socket.on('disconnect', function() {
     // Log to the console that a client has disconnected
