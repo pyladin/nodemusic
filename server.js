@@ -1,6 +1,10 @@
 var app = require('express')(); // Allows us to serve up http pages easily
 var http = require('http').createServer(app); // Creates our http server
 var io = require('socket.io')(http); // Creates our socket.io server
+var { spawn } = require('child_process'); // Allows us to spawn ffmpeg and ffplay processes
+var fs = require('fs'); // Allows us to read and write files
+var find = require('find-process'); // Allows us to check if the ffmpeg and ffplay processes area already running
+var dotenv = require('dotenv'); // Allows us to use an env file to store important variables
 
 // Send the home page when get request made to root directory
 app.get('/', function(req, res) {
@@ -22,6 +26,37 @@ io.on('connection', function(socket) {
 
   socket.on('start-ffmpeg', function() {
     console.log('Web console made request to start ffmpeg.');
+    // Declare our ffmpeg arguments
+    ffmpegArgs = {
+      streamSource: '-i ' + process.env.STREAM_SOURCE, // Will be updated to a sound card stream after testing
+      audioCodec: '-acodec ' + process.env.AUDIO_CODEC, // Allows for high quality streaming
+      broadcastFormat: '-f ' + process.env.BROADCAST_FORMAT, // Allows for multicast streaming
+      broadcastUrl: 'rtp://' + process.env.BROADCAST_ADDRESS + ':' + process.env.BROADCAST_PORT // Specifes the multicast address the clients will be connecting to
+    };
+
+    // Find if ffmpeg is already started and don't start another one
+    find('name', 'ffmpeg', true)
+    .then(function (list) {
+      if(!list.length) {
+        // If ffmpeg is not running
+        // Start ffmpeg and store the process in a variable so we can do things to it
+        var ffmpegCmd = spawn('ffmpeg', [ffmpegArgs.streamSource, ffmpegArgs.audioCodec, ffmpegArgs.broadcastFormat, ffmpegArgs.broadcastUrl], { shell: true });
+
+        ffmpegCmd.stdout.on('data', (data) => {
+          console.log(`stdout: ${data}`);
+        });
+
+        ffmpegCmd.stderr.on('data', (data) => {
+          console.error(`stderr: ${data}`);
+        });
+
+        // Write to the console to notify that ffmpeg is started
+        console.log('ffmpeg has started');
+      } else {
+        // If ffmpeg is already running
+        console.log('ffmpeg is already running');
+      };
+    });
   });
 
   socket.on('stop-ffmpeg', function() {
