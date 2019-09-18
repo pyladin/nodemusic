@@ -63,12 +63,10 @@
       });
       $( document ).ready(function() {
         $(document).on("click", "#playStream", function(){
-          var name = $('#playStream').closest('tr').find('#clientID').text();
-          console.log(name);
+          console.log($(this).closest('td').prev('#clientID').text())
         });
         $(document).on("click", "#stopStream", function(){
-          var name = $('#stopStream').closest('tr').find('#clientID').text();
-          console.log(name);
+          console.log($(this).closest('td').prev('#clientID').text())
         });
       });
     });
