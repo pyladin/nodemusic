@@ -55,18 +55,18 @@
                 "<td>" + data.clientName + "</td>" +
                 "<td>" + data.clientLocation + "</td>" +
                 "<td>Placeholder<node/td>" +
-                '<td><button type="submit" class="btn btn-success" style="text-align:center" value="' + data.clientID + '" id="playStream">Start</button> <button type="button" class="btn btn-danger" style="text-align:center" value="' + data.clientID + '" id="stopStream">Stop</button></td>' +
+                '<td><button type="button" class="btn btn-success play-stream" style="text-align:center" value="' + data.clientID + '">Start</button> <button type="button" class="btn btn-danger stop-stream" style="text-align:center" value="' + data.clientID + '">Stop</button></td>' +
                 '<td style="display:none;">' + data.clientID + "</td>"
             );
           };
         });
       });
       $( document ).ready(function() {
-        $(document).on("click", "#playStream", function(){
-          console.log($(this).closest('td').prev('#clientID').text())
+        $(document).on("click", ".play-stream", function(){
+          console.log($('.play-stream').text());
         });
-        $(document).on("click", "#stopStream", function(){
-          console.log($(this).closest('td').prev('#clientID').text())
+        $(document).on("click", ".stop-stream", function(){
+          console.log($('.stop-stream').text());
         });
       });
     });
