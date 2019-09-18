@@ -75,6 +75,10 @@ socket.on('connect', function() {
     });
   });
 
+  socket.on('get-volume', function() {
+    socket.emit('current-volume', {volumeValue: volumeValue, clientID: socket.id });
+  });
+
   socket.on('change-volume', function(data) {
     volumeValue = data.volumeValue;
     console.log('Web console made request to change volume level to: ' + volumeValue);

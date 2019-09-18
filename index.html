@@ -93,10 +93,7 @@
       };
     });
 
-    socket.on('update-volume', function(data) {
-      console.log("Client: " + data.clientID + " volume needs to be updated on the slider to: " + data.volumeValue);
-      $(`#${data.clientID}`).attr('data-slider-value', data.volumeValue);
-    });
+    socket.emit('request-volume');
   });
   </script>
 </body>

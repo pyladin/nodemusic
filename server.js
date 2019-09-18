@@ -107,6 +107,15 @@ io.on('connection', function(socket) {
     io.to(`${data.clientID}`).emit('change-volume', { volumeValue: data.volumeValue });
   });
 
+  socket.on('request-volume', function() {
+    io.emit('get-volume');
+  });
+
+  socket.on('current-volume', function(data) {
+    console.log("Client: " + data.clientID + " volume has been changed and needs to be updated to: " + data.volumeValue);
+    io.emit('update-volume', data);
+  });
+
   socket.on('volume-changed', function(data) {
     console.log("Client: " + data.clientID + " volume has been changed and needs to be updated to: " + data.volumeValue);
     io.emit('update-volume', data);
