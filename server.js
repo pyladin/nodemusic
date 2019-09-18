@@ -103,6 +103,10 @@ io.on('connection', function(socket) {
     io.to(`${data}`).emit('stop-ffplay');
   });
 
+  socket.on('set-volume', function(data) {
+    console.log('data');
+  });
+
   // Listen for disconnect events from clients
   socket.on('disconnect', function() {
     // Log to the console that a client has disconnected
