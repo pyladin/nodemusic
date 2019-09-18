@@ -41,30 +41,28 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
   <script type="text/javascript">
+  var socket = io();
+
   function f1(objButton){
     console.log(objButton.value);
   };
-  
-  $(function () {
-    var socket = io();
 
-    socket.on('connect', function() {
-      console.log('Successfully connected to the server!');
+  socket.on('connect', function() {
+    console.log('Successfully connected to the server!');
 
-      $("#client-table tbody").empty();
-      socket.emit('request-client-details');
-      socket.on('client-details', function(data) {
-        if (!($('#client-table td:contains(' + data.clientID + ')').length)) {
-          $("#client-table tbody").append(
-            "<tr>" +
-            "<td>" + data.clientName + "</td>" +
-            "<td>" + data.clientLocation + "</td>" +
-            "<td>Placeholder<node/td>" +
-            '<td><button type="button" class="btn btn-success play-stream" style="text-align:center" value="' + data.clientID + '" onclick="f1(this)">Start</button> <button type="button" class="btn btn-danger stop-stream" style="text-align:center" value="' + data.clientID + '" onclick="f1(this)">Stop</button></td>' +
-            '<td style="display:none;">' + data.clientID + "</td>"
-          );
-        };
-      });
+    $("#client-table tbody").empty();
+    socket.emit('request-client-details');
+    socket.on('client-details', function(data) {
+      if (!($('#client-table td:contains(' + data.clientID + ')').length)) {
+        $("#client-table tbody").append(
+          "<tr>" +
+          "<td>" + data.clientName + "</td>" +
+          "<td>" + data.clientLocation + "</td>" +
+          "<td>Placeholder<node/td>" +
+          '<td><button type="button" class="btn btn-success play-stream" style="text-align:center" value="' + data.clientID + '" onclick="f1(this)">Start</button> <button type="button" class="btn btn-danger stop-stream" style="text-align:center" value="' + data.clientID + '" onclick="f1(this)">Stop</button></td>' +
+          '<td style="display:none;">' + data.clientID + "</td>"
+        );
+      };
     });
   });
   </script>
