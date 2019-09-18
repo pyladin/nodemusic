@@ -34,7 +34,7 @@ io.on('connection', function(socket) {
     // Declare our ffmpeg arguments
     ffmpegArgs = {
       streamSource: '-i ' + process.env.STREAM_SOURCE, // Will be updated to a sound card stream after testing
-      audioCodec: '-acodec ' + process.env.AUDIO_CODEC, // Allows for high quality streaming
+      audioCodec: '-bufsize 0k -acodec ' + process.env.AUDIO_CODEC, // Allows for high quality streaming
       broadcastFormat: '-f ' + process.env.BROADCAST_FORMAT, // Allows for multicast streaming
       broadcastUrl: 'rtp://' + process.env.BROADCAST_ADDRESS + ':' + process.env.BROADCAST_PORT // Specifes the multicast address the clients will be connecting to
     };
