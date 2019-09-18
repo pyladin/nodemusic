@@ -55,6 +55,8 @@
   <script type="text/javascript">
   var socket = io();
 
+  var ffmpegPID = null;
+
   function f1(objButton){
     socket.emit('start-ffplay', objButton.value);
   };
@@ -68,7 +70,7 @@
   };
 
   function f4(objButton){
-    socket.emit('stop-ffmpeg', objButton.value);
+    socket.emit('stop-ffmpeg', ffmpegPID);
   };
 
   socket.on('connect', function() {
@@ -91,7 +93,7 @@
   });
 
   socket.on('ffmpeg-pid', function(data) {
-    console.log(data);
+    ffmpegPID = data;
   });
   </script>
 </body>

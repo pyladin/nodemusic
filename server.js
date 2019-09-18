@@ -64,9 +64,9 @@ io.on('connection', function(socket) {
     });
   });
 
-  socket.on('stop-ffmpeg', function() {
+  socket.on('stop-ffmpeg', function(data) {
     console.log('Web console made request to stop ffmpeg.');
-    process.kill(-ffmpegCmd.pid);
+    process.kill(data);
   });
 
   socket.on('start-ffplay', function(data) {
