@@ -81,7 +81,14 @@ io.on('connection', function(socket) {
     reorderQueueSize: '-reorder_queue_size ' + process.env.REORDER_QUEUE_SIZE // Undocumented flag to help with restarting/latency
   };
 
-  socket.on('start-ffplay', function(data) {
+  // Read our master SDP file into a varialbe to be sent to the client
+  try {
+    var masterSDP = fs.readFileSync('master.sdp', 'utf8');
+  } catch(err) {
+    console.log('Error:', err.stack);
+  }
+
+  socket.on('start-ffplay', function({ ffplayFlags: ffplayFlags, sdpFile: masterSDP} ) {
     io.to(`${data}`).emit('start-ffplay', ffplayFlags);
   });
 
