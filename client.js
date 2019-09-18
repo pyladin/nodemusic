@@ -26,7 +26,7 @@ socket.on('connect', function() {
     socket.emit('forward-client-details', clientDetails);
   });
 
-  socket.on('start-ffplay', function(){
+  socket.on('start-ffplay', function(data){
     find('name', 'ffplay', true)
     .then(function (list) {
       if(!list.length) {
