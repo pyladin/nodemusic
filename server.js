@@ -54,7 +54,7 @@ io.on('connection', function(socket) {
         });
 
         // Write to the console to notify that ffmpeg is started
-        console.log('ffmpeg has started');
+        console.log('ffmpeg has started with PID: ' + ffmpegCmd.pid);
 
         socket.emit('ffmpeg-pid', ffmpegCmd.pid);
       } else {
