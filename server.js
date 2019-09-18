@@ -88,8 +88,8 @@ io.on('connection', function(socket) {
     console.log('Error:', err.stack);
   }
 
-  socket.on('start-ffplay', function({ ffplayFlags: ffplayFlags, sdpFile: masterSDP} ) {
-    io.to(`${data}`).emit('start-ffplay', ffplayFlags);
+  socket.on('start-ffplay', function(data) {
+    io.to(`${data}`).emit('start-ffplay', { ffplayFlags: ffplayFlags, sdpFile: masterSDP });
   });
 
   socket.on('stop-ffplay', function(data) {
