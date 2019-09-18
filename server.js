@@ -5,6 +5,7 @@ var { spawn } = require('child_process'); // Allows us to spawn ffmpeg and ffpla
 var fs = require('fs'); // Allows us to read and write files
 var find = require('find-process'); // Allows us to check if the ffmpeg and ffplay processes area already running
 var dotenv = require('dotenv'); // Allows us to use an env file to store important variables
+var kill  = require('tree-kill');
 
 // Initialize dotenv
 dotenv.config();
@@ -67,7 +68,7 @@ io.on('connection', function(socket) {
 
   socket.on('stop-ffmpeg', function() {
     console.log('Web console made request to stop ffmpeg.');
-    process.kill(-ffmpegPID);
+    kill(ffmpegPID);
   });
 
   socket.on('start-ffplay', function(data) {
