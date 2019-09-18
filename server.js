@@ -56,6 +56,10 @@ io.on('connection', function(socket) {
           console.error(`stderr: ${data}`);
         });
 
+        ffmpegCmd.('close', (code) => {
+          console.log(`child process exited with code ${code}`);
+        });
+
         // Write to the console to notify that ffmpeg is started
         console.log('ffmpeg has started with PID: ' + ffmpegCmd.pid);
         ffmpegCmd.pid = ffmpegPID;
@@ -68,7 +72,7 @@ io.on('connection', function(socket) {
 
   socket.on('stop-ffmpeg', function() {
     console.log('Web console made request to stop ffmpeg.');
-    process.exit(ffmpegPID);
+    process.kill(ffmpegPID);
   });
 
   socket.on('start-ffplay', function(data) {
