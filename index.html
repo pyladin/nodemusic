@@ -88,6 +88,10 @@
         );
       };
     });
+
+    socket.on('ffmpeg-pid', function(data) {
+      console.log(data);
+    });
   });
   </script>
 </body>

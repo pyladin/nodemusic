@@ -55,16 +55,18 @@ io.on('connection', function(socket) {
 
         // Write to the console to notify that ffmpeg is started
         console.log('ffmpeg has started');
+
+        socket.emit('ffmpeg-pid', -ffmpeg.pid);
       } else {
         // If ffmpeg is already running
         console.log('ffmpeg is already running');
       };
     });
+  });
 
-    socket.on('stop-ffmpeg', function() {
-      console.log('Web console made request to stop ffmpeg.');
-      process.kill(-ffmpegCmd.pid);
-    });
+  socket.on('stop-ffmpeg', function() {
+    console.log('Web console made request to stop ffmpeg.');
+    process.kill(-ffmpegCmd.pid);
   });
 
   socket.on('start-ffplay', function(data) {
