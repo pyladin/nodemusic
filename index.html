@@ -63,11 +63,11 @@
       });
       $( document ).ready(function() {
         $(document).on("click", "#playStream", function(){
-          var name = $(this).closest('tr').find('#clientID').text();
+          var name = $('#playStream').closest('tr').find('#clientID').text();
           console.log(name);
         });
         $(document).on("click", "#stopStream", function(){
-          var name = $(this).closest('tr').find('#clientID').text();
+          var name = $('#stopStream').closest('tr').find('#clientID').text();
           console.log(name);
         });
       });
