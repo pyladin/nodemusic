@@ -54,7 +54,7 @@
               "<tr>" +
                 "<td>" + data.clientName + "</td>" +
                 "<td>" + data.clientLocation + "</td>" +
-                "<td>Placeholder</td>" +
+                "<td>Placeholder<node/td>" +
                 '<td><button type="submit" class="btn btn-success" style="text-align:center" value="' + data.clientID + '" id="playStream">Start</button> <button type="button" class="btn btn-danger" style="text-align:center" value="' + data.clientID + '" id="stopStream">Stop</button></td>' +
                 '<td style="display:none;">' + data.clientID + "</td>"
             );
@@ -65,12 +65,12 @@
         $(document).on("click", "#playStream", function(e){
           e.preventDefault();
           console.log('Sending request to client: ' + $('#playStream').attr("value"));
-          socket.emit('start-ffplay', $('#playStream').attr("value"))
+          socket.emit('start-ffplay', $('#playStream').attr("text"))
         });
         $(document).on("click", "#stopStream", function(e){
           e.preventDefault();
           console.log('Sending request to client: ' + $('#stopStream').attr("value"));
-          socket.emit('stop-ffplay', $('#stopStream').attr("value"))
+          socket.emit('stop-ffplay', $('#stopStream').attr("text"))
         });
       });
     });
