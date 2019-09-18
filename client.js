@@ -76,7 +76,7 @@ socket.on('connect', function() {
 
   socket.on('change-volume', function(data) {
     console.log('Web console made request to change volume level to: ' + data.volumeValue);
-    exec('amixer -M sset PCM' + data.volumeValue + '%', (error, stdout, stderr) => {
+    exec('amixer -M sset PCM ' + data.volumeValue + '%', (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`);
         return;
