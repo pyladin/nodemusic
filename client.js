@@ -72,4 +72,8 @@ socket.on('connect', function() {
       };
     });
   });
+
+  socket.on('change-volume', function(data) {
+    console.log('Web console made request to change volume level.');
+  });
 });
