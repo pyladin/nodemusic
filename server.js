@@ -56,7 +56,7 @@ io.on('connection', function(socket) {
         // Write to the console to notify that ffmpeg is started
         console.log('ffmpeg has started');
 
-        socket.emit('ffmpeg-pid', -ffmpegCmd.pid);
+        socket.emit('ffmpeg-pid', ffmpegCmd.pid);
       } else {
         // If ffmpeg is already running
         console.log('ffmpeg is already running');
