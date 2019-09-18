@@ -1,6 +1,7 @@
 var io = require('socket.io-client'); // Allows us to connect to the socket.io server as a client without a browser
 var dotenv = require('dotenv'); // Allows us to use an env file to store important variables
 var { spawn } = require('child_process'); // // Allows us to spawn ffmpeg and ffplay processes
+var { exec } = require('child_process');
 var fs = require('fs'); // Allows us to read and write files
 var find = require('find-process'); // Allows us to check if the ffmpeg and ffplay processes area already running
 
@@ -75,5 +76,13 @@ socket.on('connect', function() {
 
   socket.on('change-volume', function(data) {
     console.log('Web console made request to change volume level to: ' + data.volumeValue);
+    exec('amixer -M sset PCM' + data.volumeValue + '%', (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+      console.error(`stderr: ${stderr}`);
+    });
   });
 });
