@@ -74,8 +74,15 @@ io.on('connection', function(socket) {
     process.kill(ffmpegPID);
   });
 
+  // Set our ffplay flags that we will send to the client to use
+  var ffplayFlags = {
+    sdpFile: '-i ' + process.env.SDP_FILE, // Tells the client where the SDP file is located
+    protocolWhitelist: '-protocol_whitelist ' + process.env.PROTOCOL_WHITELIST, // Ffplay requires us to whitelist protocols
+    reorderQueueSize: '-reorder_queue_size ' + process.env.REORDER_QUEUE_SIZE // Undocumented flag to help with restarting/latency
+  };
+
   socket.on('start-ffplay', function(data) {
-    io.to(`${data}`).emit('start-ffplay');
+    io.to(`${data}`).emit('start-ffplay', ffplayFlags);
   });
 
   socket.on('stop-ffplay', function(data) {
