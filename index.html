@@ -44,7 +44,11 @@
   var socket = io();
 
   function f1(objButton){
-    console.log(objButton.value);
+    socket.emit('start-ffplay', objButton.value);
+  };
+
+  function f2(objButton){
+    socket.emit('stop-ffplay', objButton.value);
   };
 
   socket.on('connect', function() {
@@ -59,7 +63,7 @@
           "<td>" + data.clientName + "</td>" +
           "<td>" + data.clientLocation + "</td>" +
           "<td>Placeholder<node/td>" +
-          '<td><button type="button" class="btn btn-success play-stream" style="text-align:center" value="' + data.clientID + '" onclick="f1(this)">Start</button> <button type="button" class="btn btn-danger stop-stream" style="text-align:center" value="' + data.clientID + '" onclick="f1(this)">Stop</button></td>' +
+          '<td><button type="button" class="btn btn-success play-stream" style="text-align:center" value="' + data.clientID + '" onclick="f1(this)">Start</button> <button type="button" class="btn btn-danger stop-stream" style="text-align:center" value="' + data.clientID + '" onclick="f2(this)">Stop</button></td>' +
           '<td style="display:none;">' + data.clientID + "</td>"
         );
       };
