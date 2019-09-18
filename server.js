@@ -60,11 +60,11 @@ io.on('connection', function(socket) {
         console.log('ffmpeg is already running');
       };
     });
-  });
 
-  socket.on('stop-ffmpeg', function() {
-    console.log('Web console made request to stop ffmpeg.');
-    process.kill(-ffmpegCmd.pid);
+    socket.on('stop-ffmpeg', function() {
+      console.log('Web console made request to stop ffmpeg.');
+      process.kill(-ffmpegCmd.pid);
+    });
   });
 
   socket.on('start-ffplay', function(data) {
