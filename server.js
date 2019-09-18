@@ -37,6 +37,8 @@ io.on('connection', function(socket) {
       broadcastUrl: 'rtp://' + process.env.BROADCAST_ADDRESS + ':' + process.env.BROADCAST_PORT // Specifes the multicast address the clients will be connecting to
     };
 
+    var ffmpegPID = 0;
+
     // Find if ffmpeg is already started and don't start another one
     find('name', 'ffmpeg', true)
     .then(function (list) {
@@ -55,8 +57,7 @@ io.on('connection', function(socket) {
 
         // Write to the console to notify that ffmpeg is started
         console.log('ffmpeg has started with PID: ' + ffmpegCmd.pid);
-
-        socket.emit('ffmpeg-pid', ffmpegCmd.pid);
+        ffmpegCmd.pid = ffmpegPID;
       } else {
         // If ffmpeg is already running
         console.log('ffmpeg is already running');
@@ -64,9 +65,9 @@ io.on('connection', function(socket) {
     });
   });
 
-  socket.on('stop-ffmpeg', function(data) {
+  socket.on('stop-ffmpeg', function() {
     console.log('Web console made request to stop ffmpeg.');
-    process.kill(-data);
+    process.kill(=ffmpegPID);
   });
 
   socket.on('start-ffplay', function(data) {
