@@ -63,6 +63,6 @@ socket.on('connect', function() {
 
   socket.on('stop-ffplay', function(){
     console.log('Web console made request to stop ffplay.');
-    process.kill(ffmpegPID);
+    process.kill(ffplayPID);
   });
 });
