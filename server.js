@@ -104,7 +104,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('set-volume', function(data) {
-    console.log('data');
+    console.log(data);
   });
 
   // Listen for disconnect events from clients
