@@ -22,10 +22,10 @@ socket.on('connect', function() {
   });
 
   socket.on('start-ffplay', function(){
-    console.log('Made it all the way to the client!');
+    console.log('Web console made request to start ffplay.');
   });
 
   socket.on('stop-ffplay', function(){
-    console.log('Made it all the way to the client!');
+    console.log('Web console made request to stop ffplay.');
   });
 });

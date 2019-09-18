@@ -20,13 +20,19 @@ io.on('connection', function(socket) {
     io.emit('client-details', data);
   });
 
+  socket.on('start-ffmpeg', function() {
+    console.log('Web console made request to start ffmpeg.');
+  });
+
+  socket.on('stop-ffmpeg', function() {
+    console.log('Web console made request to stop ffmpeg.');
+  });
+
   socket.on('start-ffplay', function(data) {
-    console.log('Requesting to start ffplay on client: ' + data);
     io.to(`${data}`).emit('start-ffplay');
   });
 
   socket.on('stop-ffplay', function(data) {
-    console.log('Requesting to stop ffplay on client: ' + data);
     io.to(`${data}`).emit('stop-ffplay');
   });
 
