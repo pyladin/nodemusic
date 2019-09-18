@@ -19,6 +19,8 @@ io.on('connection', function(socket) {
   // Log to the console that a client has connected
   console.log('A client has connected');
 
+  var ffmpegPID = 0;
+
   socket.on('request-client-details', function() {
     io.emit('send-client-details');
   });
@@ -36,8 +38,6 @@ io.on('connection', function(socket) {
       broadcastFormat: '-f ' + process.env.BROADCAST_FORMAT, // Allows for multicast streaming
       broadcastUrl: 'rtp://' + process.env.BROADCAST_ADDRESS + ':' + process.env.BROADCAST_PORT // Specifes the multicast address the clients will be connecting to
     };
-
-    var ffmpegPID = 0;
 
     // Find if ffmpeg is already started and don't start another one
     find('name', 'ffmpeg', true)
