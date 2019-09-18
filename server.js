@@ -108,7 +108,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('volume-changed', function(data) {
-    console.log("A client's volume has been changed and needs to be updated to: " + data);
+    console.log("Client: " + data.clientID + " volume has been changed and needs to be updated to: " + data.volumeValue);
     io.emit('update-volume', data);
   });
 

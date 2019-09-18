@@ -86,6 +86,6 @@ socket.on('connect', function() {
       console.log(`stdout: ${stdout}`);
       console.error(`stderr: ${stderr}`);
     });
-    socket.emit('volume-changed', volumeValue);
+    socket.emit('volume-changed', {volumeValue: volumeValue, clientID: socket.id });
   });
 });
