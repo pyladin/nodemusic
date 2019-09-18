@@ -56,7 +56,7 @@ io.on('connection', function(socket) {
           console.error(`stderr: ${data}`);
         });
 
-        ffmpegCmd.('close', (code) => {
+        ffmpegCmd.on('close', (code) => {
           console.log(`child process exited with code ${code}`);
         });
 
