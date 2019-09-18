@@ -20,7 +20,7 @@ io.on('connection', function(socket) {
   // Log to the console that a client has connected
   console.log('A client has connected');
 
-  var ffmpegPID = 0;
+  var ffmpegCmd = null;
 
   socket.on('request-client-details', function() {
     io.emit('send-client-details');
@@ -46,7 +46,7 @@ io.on('connection', function(socket) {
       if(!list.length) {
         // If ffmpeg is not running
         // Start ffmpeg and store the process in a variable so we can do things to it
-        var ffmpegCmd = spawn('ffmpeg', [ffmpegArgs.streamSource, ffmpegArgs.audioCodec, ffmpegArgs.broadcastFormat, ffmpegArgs.broadcastUrl], { shell: true, detatched: true });
+        ffmpegCmd = spawn('ffmpeg', [ffmpegArgs.streamSource, ffmpegArgs.audioCodec, ffmpegArgs.broadcastFormat, ffmpegArgs.broadcastUrl], { shell: true, detatched: true });
 
         ffmpegCmd.stdout.on('data', (data) => {
           console.log(`stdout: ${data}`);
@@ -62,7 +62,6 @@ io.on('connection', function(socket) {
 
         // Write to the console to notify that ffmpeg is started
         console.log('ffmpeg has started with PID: ' + ffmpegCmd.pid);
-        ffmpegCmd.pid = ffmpegPID;
       } else {
         // If ffmpeg is already running
         console.log('ffmpeg is already running');
@@ -72,7 +71,7 @@ io.on('connection', function(socket) {
 
   socket.on('stop-ffmpeg', function() {
     console.log('Web console made request to stop ffmpeg.');
-    process.kill(ffmpegPID);
+    ffmpegCmd.kill();
   });
 
   socket.on('start-ffplay', function(data) {
