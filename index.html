@@ -70,6 +70,7 @@
   };
 
   function f4(objButton){
+    console.log('Attmepted to stop ffmpeg with PID: ' + ffmpegPID);
     socket.emit('stop-ffmpeg', ffmpegPID);
   };
 
