@@ -14,10 +14,6 @@ var socket = io('http://' + process.env.SERVER_ADDRESS + ':' + process.env.SERVE
 // Declare a variable so we can update it with our ffplay PID
 let ffplayPID = null;
 
-function getffplayPID(childProcess) {
-  ffplayPID = childProcess.pid;
-};
-
 // Listen for a successfull connection to the socket.io server
 socket.on('connect', function() {
   // Log to the console when we have successfully connected to the socket.io server
@@ -54,6 +50,12 @@ socket.on('connect', function() {
 
         // Start ffplay and store the process in a variable so we can do things to it
         var ffplayCmd = spawn('ffplay', [data.ffplayFlags.sdpFile, data.ffplayFlags.protocolWhitelist, data.ffplayFlags.reorderQueueSize], { shell: true });
+        ffplayPID = ffplayCmd.pid;
+
+        // Write to the console to notify that ffplay is started
+        // When ffplay is started, the PID that it starts with is normally
+        // +1 from what child_process reports.
+        console.log('ffplay has started with PID: ' + ffplayPID);
 
         /// !!!! ---- This may seem like a dumb thing to have but it's not ---- !!!!
         /// !!!! ---- Without this ffmpeg/ffplay become unstable ---- !!!!
@@ -68,12 +70,6 @@ socket.on('connect', function() {
         ffplayCmd.stderr.on('data', (data) => {
           console.error(`stderr: ${data}`);
         });
-
-        // Write to the console to notify that ffplay is started
-        // When ffplay is started, the PID that it starts with is normally
-        // +1 from what child_process reports.
-        getffplayPID(ffplayCmd);
-        console.log('ffplay has started with PID: ' + ffplayPID);
       } else {
         // If ffplay is already running
         console.log('ffplay is already running');

@@ -17,10 +17,6 @@ app.get('/', function(req, res) {
 // Declare a variable so we can update it with our ffmpeg PID
 var ffmpegPID = null;
 
-function getffmpegPID(childProcess) {
-  ffmpegPID = childProcess.pid;
-};
-
 // Listen for connection events from clients
 io.on('connection', function(socket) {
   // Log to the console that a client has connected
@@ -56,6 +52,12 @@ io.on('connection', function(socket) {
       if(!list.length) {
         // Start ffmpeg and store the process in a variable so we can do things to it
         var ffmpegCmd = spawn('ffmpeg', [ffmpegArgs.streamSource, ffmpegArgs.audioCodec, ffmpegArgs.broadcastFormat, ffmpegArgs.broadcastUrl], { shell: true, detatched: true });
+        ffmpegPID = ffmpegCmd.pid;
+        
+        // Write to the console to notify that ffmpeg is started
+        // When ffmpeg is started, the PID that it starts with is normally
+        // +1 from what child_process reports.
+        console.log('ffmpeg has started with PID: ' + ffmpegPID);
 
         /// !!!! ---- This may seem like a dumb thing to have but it's not ---- !!!!
         /// !!!! ---- Without this ffmpeg/ffplay become unstable ---- !!!!
@@ -70,12 +72,6 @@ io.on('connection', function(socket) {
         ffmpegCmd.stderr.on('data', (data) => {
           console.error(`stderr: ${data}`);
         });
-
-        // Write to the console to notify that ffmpeg is started
-        // When ffmpeg is started, the PID that it starts with is normally
-        // +1 from what child_process reports.
-        getffmpegPID(ffmpegCmd);
-        console.log('ffmpeg has started with PID: ' + ffmpegPID);
       } else {
         // If ffmpeg is already running
         console.log('ffmpeg is already running');
