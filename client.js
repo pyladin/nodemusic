@@ -17,7 +17,7 @@ socket.on('connect', function() {
   console.log('A connection to the server has been made.');
 
   var ffplayPID = null;
-  var volumeValue = 50;
+  var volumeValue = process.env.VOLUME;
 
   socket.on('send-client-details', function() {
     var clientDetails = {
@@ -89,6 +89,19 @@ socket.on('connect', function() {
       }
       console.log(`stdout: ${stdout}`);
       console.error(`stderr: ${stderr}`);
+
+      fs.readFile('.env', 'utf8', function(err,data) {
+        if (err) {
+          console.log(err);
+        };
+        var result data.replace(/VOLUME='\D+'/g, `VOLUME='${volumeValue}'`);
+
+        fs.writeFile('.env', result, 'utf8', function (err) {
+          if (err) {
+            console.log(err);
+          };
+        });
+      });
     });
     socket.emit('volume-changed', {volumeValue: volumeValue, clientID: socket.id });
   });

@@ -36,7 +36,7 @@ io.on('connection', function(socket) {
       streamSource: '-i ' + process.env.STREAM_SOURCE, // Will be updated to a sound card stream after testing
       audioCodec: '-acodec ' + process.env.AUDIO_CODEC, // Allows for high quality streaming
       broadcastFormat: '-f ' + process.env.BROADCAST_FORMAT, // Allows for multicast streaming
-      broadcastUrl: 'rtp://' + process.env.BROADCAST_ADDRESS + ':' + process.env.BROADCAST_PORT + "?buffer_size=0" // Specifes the multicast address the clients will be connecting to
+      broadcastUrl: 'rtp://' + process.env.BROADCAST_ADDRESS + ':' + process.env.BROADCAST_PORT // Specifes the multicast address the clients will be connecting to
     };
 
     // Find if ffmpeg is already started and don't start another one
