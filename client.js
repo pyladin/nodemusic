@@ -94,7 +94,7 @@ socket.on('connect', function() {
         if (err) {
           console.log(err);
         };
-        var result = data.replace(/VOLUME='\d+'/g, `VOLUME='${volumeValue}'`);
+        var result = data.replace(/VOLUME='\d+'|VOLUME=''/g, `VOLUME='${volumeValue}'`);
 
         fs.writeFile('.env', result, 'utf8', function (err) {
           if (err) {
