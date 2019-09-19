@@ -19,16 +19,22 @@ io.on('connection', function(socket) {
   // Log to the console that a client has connected
   console.log('A client has connected');
 
+  // Declare a variable so we can update it with our ffmpeg PID
   var ffmpegPID = null;
 
+  // Listen for the request-client-details event from the web page
   socket.on('request-client-details', function() {
+    // Send the send-client-details event to everyone
     io.emit('send-client-details');
   });
 
+  // Listen for the forward-client-details event from the clients
   socket.on('forward-client-details', function(data) {
+    // Send the client-details event to everyone
     io.emit('client-details', data);
   });
 
+  // Listen for the start-ffmpeg event from the web page
   socket.on('start-ffmpeg', function() {
     console.log('Web console made request to start ffmpeg.');
     // Declare our ffmpeg arguments
@@ -42,24 +48,28 @@ io.on('connection', function(socket) {
     // Find if ffmpeg is already started and don't start another one
     find('name', 'ffmpeg', true)
     .then(function (list) {
+      // If ffmpeg is not running
       if(!list.length) {
-        // If ffmpeg is not running
         // Start ffmpeg and store the process in a variable so we can do things to it
         var ffmpegCmd = spawn('ffmpeg', [ffmpegArgs.streamSource, ffmpegArgs.audioCodec, ffmpegArgs.broadcastFormat, ffmpegArgs.broadcastUrl], { shell: true, detatched: true });
 
+        /// !!!! ---- This may seem like a dumb thing to have but it's not ---- !!!!
+        /// !!!! ---- Without this ffmpeg/ffplay become unstable ---- !!!!
+        // Write to the console when data is received on stdout
         ffmpegCmd.stdout.on('data', (data) => {
           console.log(`stdout: ${data}`);
         });
 
+        /// !!!! ---- This may seem like a dumb thing to have but it's not ---- !!!!
+        /// !!!! ---- Without this ffmpeg/ffplay become unstable ---- !!!!
+        // Write to the console when data is received on stdout
         ffmpegCmd.stderr.on('data', (data) => {
           console.error(`stderr: ${data}`);
         });
 
-        ffmpegCmd.on('close', (code) => {
-          console.log(`child process exited with code ${code}`);
-        });
-
         // Write to the console to notify that ffmpeg is started
+        // When ffmpeg is started, the PID that it starts with is normally
+        // +1 from what child_process reports.
         ffmpegPID = ffmpegCmd.pid + 1;
         console.log('ffmpeg has started with PID: ' + ffmpegPID);
       } else {
@@ -69,13 +79,17 @@ io.on('connection', function(socket) {
     });
   });
 
+  // Listen for the stop-ffmpeg event from the web page
   socket.on('stop-ffmpeg', function() {
     console.log('Web console made request to stop ffmpeg.');
+    // Find if an instance of the ffplayPID is running
     find('pid', ffmpegPID, true)
     .then(function (list) {
+      // If it's not found either something went wrong or it's not running running
       if(!list.length) {
         console.log('ffmpeg has already been stopped.');
       } else {
+        // If it is found, kill it like we were asked
         process.kill(ffmpegPID);
       };
     });
@@ -95,29 +109,41 @@ io.on('connection', function(socket) {
     console.log('Error:', err.stack);
   }
 
+  // Listen for the start-ffplay event from the web page
   socket.on('start-ffplay', function(data) {
+    // Send the start-ffplay event to the specific client requested by the web page
     io.to(`${data}`).emit('start-ffplay', { ffplayFlags: ffplayFlags, sdpFile: masterSDP });
   });
 
+  // Listen for the stop-ffplay event from the web page
   socket.on('stop-ffplay', function(data) {
+    // Send the stop-ffplay event to the specific client requested by the web page
     io.to(`${data}`).emit('stop-ffplay');
   });
 
+  // Listen for the set-volume event from the web page
   socket.on('set-volume', function(data) {
+    // Send the change-volume event to the specific client requested by the web page
     io.to(`${data.clientID}`).emit('change-volume', { volumeValue: data.volumeValue });
   });
 
+  // Listen for the request-volume event from the web page
   socket.on('request-volume', function() {
+    // Send the get-volume event to everyone
     io.emit('get-volume');
   });
 
+  // Listen for the current-volume event from the client
   socket.on('current-volume', function(data) {
     console.log("Client: " + data.clientID + " volume has been changed and needs to be updated to: " + data.volumeValue);
+    // Send the update-volume event to everyone (the server is the only one listening)
     io.emit('update-volume', data);
   });
 
+  // Listen for the volume-changed event from the client
   socket.on('volume-changed', function(data) {
     console.log("Client: " + data.clientID + " volume has been changed and needs to be updated to: " + data.volumeValue);
+    // Send the update-volume event to everyone (the server is the only one listening)
     io.emit('update-volume', data);
   });
 
