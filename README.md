@@ -10,10 +10,27 @@ their instructions.
 ## Installation
 1. Make sure that ffmpeg is installed on the server and client(s)
 ```sh
+sudo apt-get update
 sudo apt-get install ffmpeg
 ```
 
-2. Verify that ffmpeg was installed successfully
+2. Make sure that node and npm are both install on the server and the client(s)
+```sh
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt install nodejs
+sudo apt install npm
+```
+
+3. Verify that node.js and npm were installed successfully
+```sh
+node --version
+v12.10.0
+
+npm --version
+6.11.3
+```
+
+4. Verify that ffmpeg was installed successfully
 ```sh
 which ffmpeg
 /usr/bin/ffmpeg
@@ -22,19 +39,19 @@ which ffplay
 /usr/bin/ffplay
 ```
 
-3. Clone the NodeMusic repository
+5. Clone the NodeMusic repository
 ```sh
 git clone https://github.com/pyladin/nodemusic.git myproject
 cd myproject
 npm install
 ```
 
-4. Start the server script
+6. Start the server script on the server
 ```sh
 npm start
 ```
 
-5. Start the client script
+7. Start the client script on the client
 ```sh
 node client.js
 ```
