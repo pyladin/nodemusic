@@ -72,7 +72,7 @@ socket.on('connect', function() {
         // Write to the console to notify that ffplay is started
         // When ffplay is started, the PID that it starts with is normally
         // +1 from what child_process reports.
-        getffplayPID = ffplayCmd.pid;
+        getffplayPID(ffplayCmd);
         console.log('ffplay has started with PID: ' + ffplayPID);
       } else {
         // If ffplay is already running
