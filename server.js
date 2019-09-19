@@ -20,7 +20,7 @@ io.on('connection', function(socket) {
   console.log('A client has connected');
 
   // Declare a variable so we can update it with our ffmpeg PID
-  var ffmpegPID = null;
+  let ffmpegPID = null;
 
   // Listen for the request-client-details event from the web page
   socket.on('request-client-details', function() {
@@ -70,7 +70,7 @@ io.on('connection', function(socket) {
         // Write to the console to notify that ffmpeg is started
         // When ffmpeg is started, the PID that it starts with is normally
         // +1 from what child_process reports.
-        ffmpegPID = ffmpegCmd.pid + 1;
+        ffmpegPID = ffmpegCmd.pid;
         console.log('ffmpeg has started with PID: ' + ffmpegPID);
       } else {
         // If ffmpeg is already running
