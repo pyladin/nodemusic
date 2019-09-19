@@ -11,13 +11,17 @@ dotenv.config();
 // Connect to our socket.io server after initializing the environment variables
 var socket = io('http://' + process.env.SERVER_ADDRESS + ':' + process.env.SERVER_PORT);
 
+// Declare a variable so we can update it with our ffplay PID
+let ffplayPID = null;
+
+function getffplayPID(childProcess) {
+  ffplayPID = childProcess.pid;
+};
+
 // Listen for a successfull connection to the socket.io server
 socket.on('connect', function() {
   // Log to the console when we have successfully connected to the socket.io server
   console.log('A connection to the server has been made.');
-
-  // Declare a variable so we can update it with our ffplay PID
-  let ffplayPID = null;
 
   // Pull the volume level from the .env file
   var volumeValue = process.env.VOLUME;
@@ -68,7 +72,7 @@ socket.on('connect', function() {
         // Write to the console to notify that ffplay is started
         // When ffplay is started, the PID that it starts with is normally
         // +1 from what child_process reports.
-        ffplayPID = ffplayCmd.pid;
+        getffplayPID = ffplayCmd.pid;
         console.log('ffplay has started with PID: ' + ffplayPID);
       } else {
         // If ffplay is already running
