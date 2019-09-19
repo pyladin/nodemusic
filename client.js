@@ -50,7 +50,7 @@ socket.on('connect', function() {
 
         // Start ffplay and store the process in a variable so we can do things to it
         var ffplayCmd = spawn('ffplay', [data.ffplayFlags.sdpFile, data.ffplayFlags.protocolWhitelist, data.ffplayFlags.reorderQueueSize], { shell: true });
-        ffplayPID = ffplayCmd.pid + 1;
+        ffplayPID = ffplayCmd.pid;
 
         // Write to the console to notify that ffplay is started
         // When ffplay is started, the PID that it starts with is normally
@@ -85,7 +85,15 @@ socket.on('connect', function() {
     .then(function (list) {
       // If it's not found either something went wrong or it's not running running
       if(!list.length) {
-        console.log('ffplay has already been stopped.');
+        console.log('Searching for ffplay....');
+        find('pid', ffplayPID + 1, true)
+        .then(function (list) {
+          if(!list.length) {
+            console.log("Either something went wrong or ffplay isn't running.");
+          } else {
+            process.kill(ffplayPID + 1);
+          };
+        });
       } else {
         // If it is found, kill it like we were asked
         process.kill(ffplayPID);

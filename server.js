@@ -87,7 +87,15 @@ io.on('connection', function(socket) {
     .then(function (list) {
       // If it's not found either something went wrong or it's not running running
       if(!list.length) {
-        console.log('ffmpeg has already been stopped.');
+        console.log('Searching for ffmpeg....');
+        find('pid', ffmpegPID + 1, true)
+        .then(function (list) {
+          if(!list.length) {
+            console.log("Either something went wrong or ffmpeg isn't running.");
+          } else {
+            process.kill(ffmpegPID + 1);
+          };
+        });
       } else {
         // If it is found, kill it like we were asked
         process.kill(ffmpegPID);
