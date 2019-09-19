@@ -50,7 +50,7 @@ socket.on('connect', function() {
 
         // Start ffplay and store the process in a variable so we can do things to it
         var ffplayCmd = spawn('ffplay', [data.ffplayFlags.sdpFile, data.ffplayFlags.protocolWhitelist, data.ffplayFlags.reorderQueueSize], { shell: true });
-        ffplayPID = ffplayCmd.pid;
+        ffplayPID = ffplayCmd.pid + 1;
 
         // Write to the console to notify that ffplay is started
         // When ffplay is started, the PID that it starts with is normally
