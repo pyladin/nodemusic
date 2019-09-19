@@ -82,18 +82,22 @@ io.on('connection', function(socket) {
   // Listen for the stop-ffmpeg event from the web page
   socket.on('stop-ffmpeg', function() {
     console.log('Web console made request to stop ffmpeg.');
-    // Find if an instance of the ffplayPID is running
+    // Find if an instance of the ffmpegPID is running
+    ffmpegPID = ffmpegPID + 1;
     find('pid', ffmpegPID, true)
     .then(function (list) {
+      console.log('Attempting to stop ffmpeg process with PID: ' + ffmpegPID);
       // If it's not found either something went wrong or it's not running running
       if(!list.length) {
         console.log('Searching for ffmpeg....');
-        find('pid', ffmpegPID + 1, true)
+        ffmpegPID = ffmpegPID + 1;
+        find('pid', ffmpegPID, true)
         .then(function (list) {
+            console.log('Attempting to stop ffmpeg process with PID: ' + ffmpegPID);
           if(!list.length) {
             console.log("Either something went wrong or ffmpeg isn't running.");
           } else {
-            process.kill(ffmpegPID + 1);
+            process.kill(ffmpegPID);
           };
         });
       } else {

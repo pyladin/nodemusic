@@ -81,19 +81,21 @@ socket.on('connect', function() {
   socket.on('stop-ffplay', function(){
     console.log('Web console made request to stop ffplay.');
     // Find if an instance of the ffplayPID is running
+    ffplayPID = ffplayPID + 1;
     find('pid', ffplayPID, true)
     .then(function (list) {
       console.log('Attempting to stop ffplay process with PID: ' + ffplayPID);
       // If it's not found either something went wrong or it's not running running
       if(!list.length) {
         console.log('Searching for ffplay....');
-        find('pid', ffplayPID + 1, true)
+        ffplayPID = ffplayPID + 1;
+        find('pid', ffplayPID, true)
         .then(function (list) {
-          console.log('Attempting to stop ffplay process with PID: ' + ffplayPID + 1);
+          console.log('Attempting to stop ffplay process with PID: ' + ffplayPID);
           if(!list.length) {
             console.log("Either something went wrong or ffplay isn't running.");
           } else {
-            process.kill(ffplayPID + 1);
+            process.kill(ffplayPID);
           };
         });
       } else {
