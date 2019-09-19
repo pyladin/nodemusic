@@ -52,7 +52,7 @@ io.on('connection', function(socket) {
       if(!list.length) {
         // Start ffmpeg and store the process in a variable so we can do things to it
         var ffmpegCmd = spawn('ffmpeg', [ffmpegArgs.streamSource, ffmpegArgs.audioCodec, ffmpegArgs.broadcastFormat, ffmpegArgs.broadcastUrl], { shell: true, detatched: true });
-        ffmpegPID = ffmpegCmd.pid + 1;
+        ffmpegPID = ffmpegCmd.pid;
 
         // Write to the console to notify that ffmpeg is started
         // When ffmpeg is started, the PID that it starts with is normally
