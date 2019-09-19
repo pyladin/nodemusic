@@ -14,7 +14,7 @@ sudo apt-get update
 sudo apt-get install ffmpeg
 ```
 
-2. Make sure that node and npm are both install on the server and the client(s)
+2. Make sure that node and npm are both installed on the server and the client(s)
 ```sh
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt install nodejs
@@ -46,18 +46,16 @@ cd myproject
 npm install
 ```
 
-6. Start the server script on the server
+## Usage example
+1. Start the server script on the server
 ```sh
 npm start
 ```
 
-7. Start the client script on the client
+2. Start the client script on the client
 ```sh
 node client.js
 ```
-
-## Usage example
-> To be written
 
 ## Release History
 * 0.0.1
