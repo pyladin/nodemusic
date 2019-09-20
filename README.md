@@ -52,14 +52,20 @@ npm install
 cp .env.example .env
 ```
 
-2. Update the ".env" file with the necessary settings
+2. On the server, create the "master.sdp" file by running the full ffmpeg command and copying the SDP portion to "master.sdp"
+```sh
+touch master.sdp
+ffmpeg -i STREAM_SOURCE -acodec AUDIO_CODEC, -f BROADCAST_FORMAT, rtp://BROADCAST_ADDRESS:BROADCAST_PORT
+```
 
-3. Start the server script on the server
+3. Update the ".env" file with the necessary settings
+
+4. Start the server script on the server
 ```sh
 npm start
 ```
 
-4. Start the client script on the client
+5. Start the client script on the client
 ```sh
 node client.js
 ```
