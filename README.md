@@ -47,12 +47,19 @@ npm install
 ```
 
 ## Usage example
-1. Start the server script on the server
+1. On the server and client(s), rename the ".env.example" file to ".env"
+```sh
+cp .env.example .env
+```
+
+2. Update the ".env" file with the necessary settings
+
+3. Start the server script on the server
 ```sh
 npm start
 ```
 
-2. Start the client script on the client
+4. Start the client script on the client
 ```sh
 node client.js
 ```
